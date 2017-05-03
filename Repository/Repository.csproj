@@ -49,11 +49,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GenericRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ROLES.cs">
       <DependentUpon>StreamApp.tt</DependentUpon>
     </Compile>
-    <Compile Include="ROLES1.cs" />
     <Compile Include="StreamApp.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -72,17 +72,18 @@
     <Compile Include="STREAMS.cs">
       <DependentUpon>StreamApp.tt</DependentUpon>
     </Compile>
+    <Compile Include="UserRepository.cs" />
     <Compile Include="USERS.cs">
       <DependentUpon>StreamApp.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="packages.config" />
     <EntityDeploy Include="StreamApp.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>StreamApp.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="packages.config" />
     <None Include="StreamApp.edmx.diagram">
       <DependentUpon>StreamApp.edmx</DependentUpon>
     </None>
