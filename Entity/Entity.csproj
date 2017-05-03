@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.4</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="StreamApp.tt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="ROLES.cs">
+      <DependentUpon>StreamApp.tt</DependentUpon>
+    </Compile>
+    <Compile Update="StreamApp.cs">
+      <DependentUpon>StreamApp.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="STREAMS.cs">
+      <DependentUpon>StreamApp.tt</DependentUpon>
+    </Compile>
+    <Compile Update="USERS.cs">
+      <DependentUpon>StreamApp.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="StreamApp.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>StreamApp.cs</LastGenOutput>
+      <CustomToolNamespace>Entity</CustomToolNamespace>
+    </None>
+  </ItemGroup>
+
+</Project>
