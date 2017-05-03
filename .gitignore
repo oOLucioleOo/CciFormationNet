@@ -254,3 +254,4 @@ paket-files/
 # App.config file
 
 /WebAPI/App.config
+/WebAPI/Web.config
