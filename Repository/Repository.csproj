@@ -36,6 +36,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Expression.Encoder, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=x86">
+      <HintPath>..\packages\Microsoft.Expression.Encoder.4.0.4276.3\lib\net45\Microsoft.Expression.Encoder.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -51,28 +54,17 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ROLES.cs">
-      <DependentUpon>StreamApp.tt</DependentUpon>
+     
     </Compile>
     <Compile Include="StreamApp.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>StreamApp.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="StreamApp.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>StreamApp.tt</DependentUpon>
-    </Compile>
     <Compile Include="StreamApp.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>StreamApp.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="STREAMS.cs">
-      <DependentUpon>StreamApp.tt</DependentUpon>
-    </Compile>
-    <Compile Include="USERS.cs">
-      <DependentUpon>StreamApp.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -91,11 +83,7 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>StreamApp.Context.cs</LastGenOutput>
       <DependentUpon>StreamApp.edmx</DependentUpon>
-    </Content>
-    <Content Include="StreamApp.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>StreamApp.edmx</DependentUpon>
-      <LastGenOutput>StreamApp.cs</LastGenOutput>
+      <CustomToolNamespace>Entity</CustomToolNamespace>
     </Content>
   </ItemGroup>
   <ItemGroup>
