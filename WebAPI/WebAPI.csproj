@@ -105,9 +105,9 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Repository\Repository.csproj">
-      <Project>{70AD3061-3555-4537-AED8-9E8C9170DE0E}</Project>
-      <Name>Repository</Name>
+    <ProjectReference Include="..\Entity\Entity.csproj">
+      <Project>{33230F79-A726-4B0B-9A6B-090E485BBB0F}</Project>
+      <Name>Entity</Name>
     </ProjectReference>
     <ProjectReference Include="..\Services\Services.csproj">
       <Project>{8D67EA89-109B-4B54-AFB6-3F2AFD5E4103}</Project>

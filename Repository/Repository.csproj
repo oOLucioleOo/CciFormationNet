@@ -53,9 +53,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ROLES.cs">
-     
-    </Compile>
     <Compile Include="StreamApp.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
