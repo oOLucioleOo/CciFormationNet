@@ -61,7 +61,6 @@ namespace WpfApp
                 while (!StopRcrdBtn.IsPressed)
                 {
                     // Get the data
-                    
                     audioStream.WriteBlock(audioBuffer, 0, audioBuffer.Length);
                 }
                 // Create encoder
