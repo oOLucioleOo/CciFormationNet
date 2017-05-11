@@ -45,7 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Entity\Entity.csproj">
-      <Project>{33230F79-A726-4B0B-9A6B-090E485BBB0F}</Project>
+      <Project>{318aea49-97d3-447c-a9e5-25e2a5df34a1}</Project>
       <Name>Entity</Name>
     </ProjectReference>
     <ProjectReference Include="..\Repository\Repository.csproj">
