@@ -1,0 +1,7 @@
+EtuCci
+P@ssw0rd
+
+anael.database.windows.net
+
+
+BD realiser avec PowerAMC pour SQL server 2008
