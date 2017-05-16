@@ -1,7 +1,7 @@
-EtuCci
-P@ssw0rd
+Matteus
+Usul_7614_
 
-anael.database.windows.net
+video-db.database.windows.net
 
 
 BD realiser avec PowerAMC pour SQL server 2008
