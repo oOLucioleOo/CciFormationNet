@@ -23,6 +23,10 @@
                 <views:VideoRecorderControl x:Name="VideoRecorderControl"></views:VideoRecorderControl>
             </TabItem>
 
+            <TabItem Header="{Binding Path=Strings.Channel, Source={StaticResource ApplicationResources}}" Padding="20,20,20,20">
+                <views:ChannelControl x:Name="ChannelControl"></views:ChannelControl>
+            </TabItem>
+            
             <TabItem Header="{Binding Path=Strings.ParametersPageName, Source={StaticResource ApplicationResources}}" Padding="20,20,20,20">
                 <views:ParametersControl x:Name="ParametersControl"></views:ParametersControl>
             </TabItem>

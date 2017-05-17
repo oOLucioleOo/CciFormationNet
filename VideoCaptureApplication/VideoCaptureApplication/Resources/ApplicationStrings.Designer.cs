@@ -61,6 +61,15 @@ namespace VideoCaptureApplication.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Channel.
+        /// </summary>
+        public static string Channel {
+            get {
+                return ResourceManager.GetString("Channel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Language.
         /// </summary>
         public static string LanguageLabel {
