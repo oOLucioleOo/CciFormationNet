@@ -170,6 +170,16 @@ namespace VideoCaptureApplication.Views
             LanguageList.Add(new Language { Code = "en-GB", ImageUrl = "/VideoCaptureApplication;component/Assets/Images/Languages/en-GB.png", Name = "English" });
         }
 
-        #endregion 
+        #endregion
+
+        private void sliderQuality_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            labelResultQuality.Text = Math.Round(sliderQuality.Value, 2).ToString() + "q";
+        }
+
+        private void sliderNbImage_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            labelResultNbImage.Text = Math.Round(sliderNbImage.Value, 2).ToString() + " img/s";
+        }
     }
 }

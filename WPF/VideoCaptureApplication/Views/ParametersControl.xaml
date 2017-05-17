@@ -5,8 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:views="clr-namespace:VideoCaptureApplication.Views"
-             d:DesignHeight="300"
-             d:DesignWidth="300"
+             d:DesignHeight="600"
+             d:DesignWidth="800"
              Loaded="ParametersControl_OnLoaded"
              mc:Ignorable="d">
     <Grid Margin="20,20,20,20">
@@ -32,6 +32,25 @@
             </ListBox>
         </StackPanel>
 
+        
+        
+        
+        <TextBlock x:Name="labelQuality" Style="{StaticResource BasicTextBlock}" 
+        	Margin="20,19,140,118" Grid.Row="1" Text="Qualité"/>
+        <TextBlock x:Name="labelResultQuality" Style="{StaticResource BasicTextBlock}" 
+        	Margin="140,19,20,118" Grid.Row="1" Text="--"/>
+        <Slider Minimum="10" Maximum="100" TickPlacement="BottomRight" TickFrequency="5" IsSnapToTickEnabled="True" x:Name="sliderQuality" Margin="0,48,0,70" Grid.Row="1" ValueChanged="sliderQuality_ValueChanged" Width="700" HorizontalAlignment="Left" />
+
+
+        <TextBlock x:Name="labelNbImage" Style="{StaticResource BasicTextBlock}" 
+        	Margin="20,94,140,43" Grid.Row="1" Text="Nb d'images"/>
+        <TextBlock x:Name="labelResultNbImage" Style="{StaticResource BasicTextBlock}" 
+        	Margin="140,94,20,43" Grid.Row="1" Text="--"/>
+        <Slider Minimum="20" Maximum="60" TickPlacement="BottomRight" TickFrequency="1" IsSnapToTickEnabled="True" x:Name="sliderNbImage" Margin="0,129,0,49" Grid.Row="1" Grid.RowSpan="2" ValueChanged="sliderNbImage_ValueChanged"  Width="700" HorizontalAlignment="Left"/>
+
+        
+        
+
         <StackPanel Grid.Row="2" VerticalAlignment="Center">
             <Button Width="100"
                     Margin="0,0,20,0"
@@ -40,5 +59,9 @@
                     Content="{Binding Path=Strings.SaveBtnLabel, Source={StaticResource ApplicationResources}}"
                     Style="{DynamicResource AccentedSquareButtonStyle}" />
         </StackPanel>
+
+
+
+        
     </Grid>
 </views:BaseControl>
