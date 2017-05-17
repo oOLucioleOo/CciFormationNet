@@ -107,7 +107,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Entity\Entity.csproj">
-      <Project>{318aea49-97d3-447c-a9e5-25e2a5df34a1}</Project>
+      <Project>{ab2ef369-7472-49be-b88e-fd8dd073df80}</Project>
       <Name>Entity</Name>
     </ProjectReference>
     <ProjectReference Include="..\Services\Services.csproj">
