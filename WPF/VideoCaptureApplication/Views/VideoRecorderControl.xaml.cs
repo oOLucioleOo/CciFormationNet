@@ -1,7 +1,11 @@
-﻿using System;
+﻿using SharpAvi;
+using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
+
+using VideoCaptureApplication.TestCapture;
 
 namespace VideoCaptureApplication.Views
 {
@@ -10,6 +14,34 @@ namespace VideoCaptureApplication.Views
     /// </summary>
     public partial class VideoRecorderControl : UserControl
     {
+        private static readonly DependencyPropertyKey IsRecordingPropertyKey =
+            DependencyProperty.RegisterReadOnly("IsRecording", typeof(bool), typeof(MainWindow), new PropertyMetadata(false));
+        public static readonly DependencyProperty IsRecordingProperty = IsRecordingPropertyKey.DependencyProperty;
+
+        private static readonly DependencyPropertyKey ElapsedPropertyKey =
+            DependencyProperty.RegisterReadOnly("Elapsed", typeof(string), typeof(MainWindow), new PropertyMetadata(string.Empty));
+        public static readonly DependencyProperty ElapsedProperty = ElapsedPropertyKey.DependencyProperty;
+
+        private static readonly DependencyPropertyKey HasLastScreencastPropertyKey =
+            DependencyProperty.RegisterReadOnly("HasLastScreencast", typeof(bool), typeof(MainWindow), new PropertyMetadata(false));
+        public static readonly DependencyProperty HasLastScreencastProperty = HasLastScreencastPropertyKey.DependencyProperty;
+        
+        private string lastFileName;
+        private VideoRecorder videoRecorder;
+        private readonly Stopwatch recordingStopwatch = new Stopwatch();
+        private string outputFolder;
+        private FourCC encoder;
+        private int encodingQuality;
+        private bool minimizeOnStart;
+
+        private readonly DispatcherTimer recordingTimer;
+
+        public bool IsRecording{ get; set; }
+
+        public string Elapsed{ get; set; }
+
+        public bool HasLastScreencast{ get; set; }
+
         public MainWindow MasterWindow
         {
             get { return (MainWindow)Application.Current.MainWindow; }
@@ -18,6 +50,15 @@ namespace VideoCaptureApplication.Views
         public VideoRecorderControl()
         {
             InitializeComponent();
+            /*Settings*/
+            recordingTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1) };
+            recordingTimer.Tick += recordingTimer_Tick;
+            
+            var exePath = new Uri(System.Reflection.Assembly.GetEntryAssembly().Location).LocalPath;
+            outputFolder = System.IO.Path.GetDirectoryName(exePath);
+            encoder = KnownFourCCs.Codecs.MotionJpeg;
+            //minimizeOnStart = true;
+            encodingQuality = 70;
 
             DispatcherTimer timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(1);
@@ -82,25 +123,69 @@ namespace VideoCaptureApplication.Views
             /*
              * http://hubblesource.stsci.edu/sources/video/clips/details/images/hst_1.mpg
              */
-            /*
+            
             InputDialogSample inputDialog = new InputDialogSample();
             if (inputDialog.ShowDialog() == true)
                 Result = inputDialog.Answer;
             btnInternet.Content = Result;
-            */
+            
+        }
+
+
+        private void StartRecording()
+        {
+            if (IsRecording)
+                throw new InvalidOperationException("Already recording.");
+
+            //if (minimizeOnStart)
+            //    WindowState = WindowState.Minimized;
+
+            Elapsed = "00:00";
+            HasLastScreencast = false;
+            IsRecording = true;
+
+            recordingStopwatch.Reset();
+            recordingTimer.Start();
+
+            lastFileName = System.IO.Path.Combine(outputFolder, DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + ".avi");
+            videoRecorder = new VideoRecorder(lastFileName,
+                encoder, encodingQuality);
+
+            recordingStopwatch.Start();
+        }
+
+        private void StopRecording()
+        {
+            if (!IsRecording)
+                throw new InvalidOperationException("Not recording.");
+
+            videoRecorder.Dispose();
+            videoRecorder = null;
+
+            recordingTimer.Stop();
+            recordingStopwatch.Stop();
+
+            IsRecording = false;
+            HasLastScreencast = true;
+        }
+
+        private void recordingTimer_Tick(object sender, EventArgs e)
+        {
+            var elapsed = recordingStopwatch.Elapsed;
+            Elapsed = string.Format(
+                "{0:00}:{1:00}",
+                Math.Floor(elapsed.TotalMinutes),
+                elapsed.Seconds);
         }
 
         private void btnRcrdStart_Click(object sender, RoutedEventArgs e)
         {
-
+            StartRecording();
         }
 
         private void btnRcrdStop_Click(object sender, RoutedEventArgs e)
         {
-
-        }
+            StopRecording();
+        }   
     }
-
-
-
 }

@@ -158,5 +158,16 @@ namespace VideoCaptureApplication.TestCapture
             }
         }
 
+        public void Dispose()
+        {
+            stopThread.Set();
+            screenThread.Join();
+
+            // Close writer: the remaining data is written to a file and file is closed
+            writer.Close();
+
+            stopThread.Close();
+        }
+
     }
 }
