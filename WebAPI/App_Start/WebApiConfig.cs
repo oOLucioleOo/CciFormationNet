@@ -19,6 +19,11 @@ namespace WebAPI
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            config.Routes.MapHttpRoute(
+                name: "DefaultVideo",
+                routeTemplate: "api/{controller}/{ext}/{filename}"
+            );
         }
     }
 }
