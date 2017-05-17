@@ -12,18 +12,25 @@ namespace Entity
     using System;
     using System.Collections.Generic;
     
-    public partial class ROLES
+    public partial class USER
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ROLES()
+        public USER()
         {
-            this.USERS = new HashSet<USERS>();
+            this.STREAM = new HashSet<STREAM>();
         }
     
+        public long USER_ID { get; set; }
         public long ROLE_ID { get; set; }
-        public long ROLE_TYPE { get; set; }
+        public long USER_LOG { get; set; }
+        public string USER_PWD { get; set; }
+        public string USER_FIRSTNAME { get; set; }
+        public string USER_LASTNAME { get; set; }
+        public string USER_MAIL { get; set; }
+        public string USER_AVATAR { get; set; }
     
+        public virtual ROLE ROLE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<USERS> USERS { get; set; }
+        public virtual ICollection<STREAM> STREAM { get; set; }
     }
 }
