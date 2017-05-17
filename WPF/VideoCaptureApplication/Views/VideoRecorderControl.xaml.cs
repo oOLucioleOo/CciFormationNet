@@ -88,6 +88,16 @@ namespace VideoCaptureApplication.Views
             btnInternet.Content = Result;
 
         }
+
+        private void btnRcrdStart_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnRcrdStop_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 
 
