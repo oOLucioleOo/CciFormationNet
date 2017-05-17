@@ -82,11 +82,12 @@ namespace VideoCaptureApplication.Views
             /*
              * http://hubblesource.stsci.edu/sources/video/clips/details/images/hst_1.mpg
              */
+            /*
             InputDialogSample inputDialog = new InputDialogSample();
             if (inputDialog.ShowDialog() == true)
                 Result = inputDialog.Answer;
             btnInternet.Content = Result;
-
+            */
         }
     }
 
