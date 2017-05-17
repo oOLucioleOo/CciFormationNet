@@ -48,11 +48,18 @@
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="SharpAvi, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SharpAvi.2.1.0\lib\net45\SharpAvi.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\MahApps.Metro.1.5.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+<<<<<<< HEAD
+      <Private>True</Private>
+=======
+>>>>>>> 0cc25d42a9be228c3195c4a51d79c02eb85662e5
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -92,6 +99,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ApplicationStrings.fr-FR.resx</DependentUpon>
     </Compile>
+    <Compile Include="TestCapture\VideoRecorder.cs" />
     <Compile Include="Views\BaseControl.cs" />
     <Compile Include="Views\InputDialogSample.xaml.cs">
       <DependentUpon>InputDialogSample.xaml</DependentUpon>
