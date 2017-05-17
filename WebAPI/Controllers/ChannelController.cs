@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using WebAPI.Models;
 
 namespace WebAPI.Controllers
 {
@@ -34,7 +35,18 @@ namespace WebAPI.Controllers
         private  IChannel channel;
 
         [HttpGet]
-        public string Start()
+        public WTF Test()
+        {
+            WTF wtf = new WTF();
+
+            wtf.Id = 1;
+            wtf.Name = "Le C# ne respecte rien ni personne... #WTF";
+
+            return wtf;
+        }
+
+        [HttpGet]
+        public DataChannel Start()
         {
 
             // Create and cache the Media Services credentials in a static class variable.
@@ -48,11 +60,15 @@ namespace WebAPI.Controllers
             channel = CreateAndStartChannel();
 
             // The channel's input endpoint:
-            string ingestUrl = channel.Input.Endpoints.FirstOrDefault().Url.ToString();
+            //string ingestUrl = channel.Input.Endpoints.FirstOrDefault().Url.ToString();
 
             // Use the previewEndpoint to preview and verify 
             // that the input from the encoder is actually reaching the Channel. 
-            string previewEndpoint = channel.Preview.Endpoints.FirstOrDefault().Url.ToString();
+            //string previewEndpoint = channel.Preview.Endpoints.FirstOrDefault().Url.ToString();
+
+            DataChannel dataChannel = new DataChannel();
+            dataChannel.UrlIngest = channel.Input.Endpoints.FirstOrDefault().Url.ToString();
+            dataChannel.UrlPreview = channel.Preview.Endpoints.FirstOrDefault().Url.ToString();
 
             // When Live Encoding is enabled, you can now get a preview of the live feed as it reaches the Channel. 
             // This can be a valuable tool to check whether your live feed is actually reaching the Channel. 
@@ -72,7 +88,7 @@ namespace WebAPI.Controllers
 
             ILocator locator = CreateLocatorForAsset(program.Asset, program.ArchiveWindowLength);
 
-            return ingestUrl;
+            return dataChannel;
         }
 
         [HttpGet]
