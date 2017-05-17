@@ -1,0 +1,212 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="VideoDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ROLE">
+          <Key>
+            <PropertyRef Name="ROLE_ID" />
+          </Key>
+          <Property Name="ROLE_ID" Type="bigint" Nullable="false" />
+          <Property Name="ROLE_TYPE" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="STREAM">
+          <Key>
+            <PropertyRef Name="STREAM_ID" />
+          </Key>
+          <Property Name="STREAM_ID" Type="bigint" Nullable="false" />
+          <Property Name="USER_ID" Type="bigint" Nullable="false" />
+          <Property Name="STREAM_LINK" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="STREAM_DATE_START" Type="datetime" Nullable="false" />
+          <Property Name="STREAM_DATE_END" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="USER">
+          <Key>
+            <PropertyRef Name="USER_ID" />
+          </Key>
+          <Property Name="USER_ID" Type="bigint" Nullable="false" />
+          <Property Name="ROLE_ID" Type="bigint" Nullable="false" />
+          <Property Name="USER_LOG" Type="bigint" Nullable="false" />
+          <Property Name="USER_PWD" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="USER_FIRSTNAME" Type="varchar" MaxLength="1" />
+          <Property Name="USER_LASTNAME" Type="varchar" MaxLength="1" />
+          <Property Name="USER_MAIL" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="USER_AVATAR" Type="varchar" MaxLength="1" />
+        </EntityType>
+        <Association Name="FK_STREAM_USER">
+          <End Role="USER" Type="Self.USER" Multiplicity="1" />
+          <End Role="STREAM" Type="Self.STREAM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USER">
+              <PropertyRef Name="USER_ID" />
+            </Principal>
+            <Dependent Role="STREAM">
+              <PropertyRef Name="USER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USER_ROLE">
+          <End Role="ROLE" Type="Self.ROLE" Multiplicity="1" />
+          <End Role="USER" Type="Self.USER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROLE">
+              <PropertyRef Name="ROLE_ID" />
+            </Principal>
+            <Dependent Role="USER">
+              <PropertyRef Name="ROLE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="VideoDBModelStoreContainer">
+          <EntitySet Name="ROLE" EntityType="Self.ROLE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="STREAM" EntityType="Self.STREAM" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USER" EntityType="Self.USER" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_STREAM_USER" Association="Self.FK_STREAM_USER">
+            <End Role="USER" EntitySet="USER" />
+            <End Role="STREAM" EntitySet="STREAM" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USER_ROLE" Association="Self.FK_USER_ROLE">
+            <End Role="ROLE" EntitySet="ROLE" />
+            <End Role="USER" EntitySet="USER" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="VideoDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="VideoDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ROLE" EntityType="VideoDBModel.ROLE" />
+          <EntitySet Name="STREAM" EntityType="VideoDBModel.STREAM" />
+          <EntitySet Name="USER" EntityType="VideoDBModel.USER" />
+          <AssociationSet Name="FK_USER_ROLE" Association="VideoDBModel.FK_USER_ROLE">
+            <End Role="ROLE" EntitySet="ROLE" />
+            <End Role="USER" EntitySet="USER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STREAM_USER" Association="VideoDBModel.FK_STREAM_USER">
+            <End Role="USER" EntitySet="USER" />
+            <End Role="STREAM" EntitySet="STREAM" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="ROLE">
+          <Key>
+            <PropertyRef Name="ROLE_ID" />
+          </Key>
+          <Property Name="ROLE_ID" Type="Int64" Nullable="false" />
+          <Property Name="ROLE_TYPE" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="USER" Relationship="VideoDBModel.FK_USER_ROLE" FromRole="ROLE" ToRole="USER" />
+        </EntityType>
+        <EntityType Name="STREAM">
+          <Key>
+            <PropertyRef Name="STREAM_ID" />
+          </Key>
+          <Property Name="STREAM_ID" Type="Int64" Nullable="false" />
+          <Property Name="USER_ID" Type="Int64" Nullable="false" />
+          <Property Name="STREAM_LINK" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="STREAM_DATE_START" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="STREAM_DATE_END" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="USER" Relationship="VideoDBModel.FK_STREAM_USER" FromRole="STREAM" ToRole="USER" />
+        </EntityType>
+        <EntityType Name="USER">
+          <Key>
+            <PropertyRef Name="USER_ID" />
+          </Key>
+          <Property Name="USER_ID" Type="Int64" Nullable="false" />
+          <Property Name="ROLE_ID" Type="Int64" Nullable="false" />
+          <Property Name="USER_LOG" Type="Int64" Nullable="false" />
+          <Property Name="USER_PWD" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="USER_FIRSTNAME" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="USER_LASTNAME" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="USER_MAIL" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="USER_AVATAR" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ROLE" Relationship="VideoDBModel.FK_USER_ROLE" FromRole="USER" ToRole="ROLE" />
+          <NavigationProperty Name="STREAM" Relationship="VideoDBModel.FK_STREAM_USER" FromRole="USER" ToRole="STREAM" />
+        </EntityType>
+        <Association Name="FK_USER_ROLE">
+          <End Type="VideoDBModel.ROLE" Role="ROLE" Multiplicity="1" />
+          <End Type="VideoDBModel.USER" Role="USER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROLE">
+              <PropertyRef Name="ROLE_ID" />
+            </Principal>
+            <Dependent Role="USER">
+              <PropertyRef Name="ROLE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_STREAM_USER">
+          <End Type="VideoDBModel.USER" Role="USER" Multiplicity="1" />
+          <End Type="VideoDBModel.STREAM" Role="STREAM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USER">
+              <PropertyRef Name="USER_ID" />
+            </Principal>
+            <Dependent Role="STREAM">
+              <PropertyRef Name="USER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="VideoDBModelStoreContainer" CdmEntityContainer="VideoDBEntities">
+          <EntitySetMapping Name="ROLE">
+            <EntityTypeMapping TypeName="VideoDBModel.ROLE">
+              <MappingFragment StoreEntitySet="ROLE">
+                <ScalarProperty Name="ROLE_TYPE" ColumnName="ROLE_TYPE" />
+                <ScalarProperty Name="ROLE_ID" ColumnName="ROLE_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="STREAM">
+            <EntityTypeMapping TypeName="VideoDBModel.STREAM">
+              <MappingFragment StoreEntitySet="STREAM">
+                <ScalarProperty Name="STREAM_DATE_END" ColumnName="STREAM_DATE_END" />
+                <ScalarProperty Name="STREAM_DATE_START" ColumnName="STREAM_DATE_START" />
+                <ScalarProperty Name="STREAM_LINK" ColumnName="STREAM_LINK" />
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+                <ScalarProperty Name="STREAM_ID" ColumnName="STREAM_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USER">
+            <EntityTypeMapping TypeName="VideoDBModel.USER">
+              <MappingFragment StoreEntitySet="USER">
+                <ScalarProperty Name="USER_AVATAR" ColumnName="USER_AVATAR" />
+                <ScalarProperty Name="USER_MAIL" ColumnName="USER_MAIL" />
+                <ScalarProperty Name="USER_LASTNAME" ColumnName="USER_LASTNAME" />
+                <ScalarProperty Name="USER_FIRSTNAME" ColumnName="USER_FIRSTNAME" />
+                <ScalarProperty Name="USER_PWD" ColumnName="USER_PWD" />
+                <ScalarProperty Name="USER_LOG" ColumnName="USER_LOG" />
+                <ScalarProperty Name="ROLE_ID" ColumnName="ROLE_ID" />
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

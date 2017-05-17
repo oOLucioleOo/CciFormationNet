@@ -12,14 +12,18 @@ namespace Entity
     using System;
     using System.Collections.Generic;
     
-    public partial class STREAMS
+    public partial class ROLE
     {
-        public long STREAM_ID { get; set; }
-        public long USER_ID { get; set; }
-        public string STREAM_LINK { get; set; }
-        public System.DateTime STREAM_DATE_START { get; set; }
-        public System.DateTime STREAM_DATE_END { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ROLE()
+        {
+            this.USER = new HashSet<USER>();
+        }
     
-        public virtual USERS USERS { get; set; }
+        public long ROLE_ID { get; set; }
+        public long ROLE_TYPE { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<USER> USER { get; set; }
     }
 }

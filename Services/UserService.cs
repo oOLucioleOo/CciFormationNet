@@ -9,9 +9,9 @@ namespace Services
 {
     public static class UserService
     {
-        public static USERS GetUsers(long login, string password)
+        public static USER GetUsers(long login, string password)
         {
-            return new USERS();
+            return new USER();
         }
       
     }
