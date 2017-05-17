@@ -108,6 +108,10 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Entity\Entity.csproj">
+      <Project>{ab2ef369-7472-49be-b88e-fd8dd073df80}</Project>
+      <Name>Entity</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Services\Services.csproj">
       <Project>{8D67EA89-109B-4B54-AFB6-3F2AFD5E4103}</Project>
       <Name>Services</Name>

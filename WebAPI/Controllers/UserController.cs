@@ -1,4 +1,5 @@
-﻿using Services;
+﻿using Entity;
+using Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,9 @@ namespace WebAPI.Controllers
 {
     public class UserController : ApiController
     {
-        //public USERS GetUsers(long login, string password)
-        //{
-        //    return UserService.GetUsers(login, password);
-        //}
+        public USER GetUsers(long login, string password)
+        {
+            return UserService.GetUsers(login, password);
+        }
     }
 }

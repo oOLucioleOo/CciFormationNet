@@ -8,6 +8,35 @@
              d:DesignHeight="300" d:DesignWidth="300" 
              Loaded="VideoRecorderControl_OnLoaded">
     <Grid Margin="20,20,20,20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="{Binding Path=Strings.VideoPageName, Source={StaticResource ApplicationResources}}" Style="{StaticResource BasicTextBlock}"></TextBlock>
+
+        <WrapPanel HorizontalAlignment="Center" Grid.Row="1">
+            <Button Name="btnPlay" Click="btnPlay_Click">Play</Button>
+            <Button Name="btnPause" Margin="5,0" Click="btnPause_Click">Pause</Button>
+            <Button Name="btnStop" Click="btnStop_Click">Stop</Button>
+            <Button Name="btnSearch" Margin="5,0" Click="btnSearch_Click">Rechercher</Button>
+            <Button Name="btnInternet" Click="btnInternet_Click">Lien Internet</Button>
+            <Button Name="btnRcrdStart" Margin="5,0" Click="btnRcrdStart_Click">Start Record</Button>
+            <Button Name="btnRcrdStop" Click="btnRcrdStop_Click">Stop Record</Button>
+        </WrapPanel>
+
         <TextBlock Text="{Binding Path=Strings.VideoPageName, Source={StaticResource ApplicationResources}}" Style="{StaticResource BasicTextBlock}"></TextBlock>
+
+        <MediaElement Grid.Row="2"  Source="http://hubblesource.stsci.edu/sources/video/clips/details/images/hst_1.mpg" LoadedBehavior="Manual" Name="mePlayer" Margin="10,10,10,47" />
+
+        <Label Grid.Row="3" Name="lblStatus" Content="Not playing..." HorizontalContentAlignment="Center"/>
+
+
+
+
+
     </Grid>
+
 </UserControl>
