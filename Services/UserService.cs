@@ -11,6 +11,8 @@ namespace Services
 {
     public static class UserService
     {
+        private static object MessageBox;
+
         public static long GetUsers(string login, string password)
         {
             var UserRepository = new UserRepository();

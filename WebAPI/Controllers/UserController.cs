@@ -11,6 +11,7 @@ namespace WebAPI.Controllers
 {
     public class UserController : ApiController
     {
+        [HttpPost]
         public long GetUsers(string login, string password)
         {
             return UserService.GetUsers(login, password);
