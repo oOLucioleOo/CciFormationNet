@@ -10,7 +10,7 @@
             <PropertyRef Name="ROLE_ID" />
           </Key>
           <Property Name="ROLE_ID" Type="bigint" Nullable="false" />
-          <Property Name="ROLE_TYPE" Type="bigint" Nullable="false" />
+          <Property Name="ROLE_TYPE" Type="varchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <EntityType Name="STREAM">
           <Key>
@@ -18,7 +18,7 @@
           </Key>
           <Property Name="STREAM_ID" Type="bigint" Nullable="false" />
           <Property Name="USER_ID" Type="bigint" Nullable="false" />
-          <Property Name="STREAM_LINK" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="STREAM_LINK" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="STREAM_DATE_START" Type="datetime" Nullable="false" />
           <Property Name="STREAM_DATE_END" Type="datetime" Nullable="false" />
         </EntityType>
@@ -28,12 +28,12 @@
           </Key>
           <Property Name="USER_ID" Type="bigint" Nullable="false" />
           <Property Name="ROLE_ID" Type="bigint" Nullable="false" />
-          <Property Name="USER_LOG" Type="bigint" Nullable="false" />
-          <Property Name="USER_PWD" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="USER_FIRSTNAME" Type="varchar" MaxLength="1" />
-          <Property Name="USER_LASTNAME" Type="varchar" MaxLength="1" />
-          <Property Name="USER_MAIL" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="USER_AVATAR" Type="varchar" MaxLength="1" />
+          <Property Name="USER_LOG" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="USER_PWD" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="USER_FIRSTNAME" Type="varchar" MaxLength="100" />
+          <Property Name="USER_LASTNAME" Type="varchar" MaxLength="100" />
+          <Property Name="USER_MAIL" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="USER_AVATAR" Type="varchar" MaxLength="255" />
         </EntityType>
         <Association Name="FK_STREAM_USER">
           <End Role="USER" Type="Self.USER" Multiplicity="1" />
@@ -94,7 +94,7 @@
             <PropertyRef Name="ROLE_ID" />
           </Key>
           <Property Name="ROLE_ID" Type="Int64" Nullable="false" />
-          <Property Name="ROLE_TYPE" Type="Int64" Nullable="false" />
+          <Property Name="ROLE_TYPE" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="USER" Relationship="VideoDBModel.FK_USER_ROLE" FromRole="ROLE" ToRole="USER" />
         </EntityType>
         <EntityType Name="STREAM">
@@ -103,7 +103,7 @@
           </Key>
           <Property Name="STREAM_ID" Type="Int64" Nullable="false" />
           <Property Name="USER_ID" Type="Int64" Nullable="false" />
-          <Property Name="STREAM_LINK" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="STREAM_LINK" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="STREAM_DATE_START" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="STREAM_DATE_END" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="USER" Relationship="VideoDBModel.FK_STREAM_USER" FromRole="STREAM" ToRole="USER" />
@@ -114,12 +114,12 @@
           </Key>
           <Property Name="USER_ID" Type="Int64" Nullable="false" />
           <Property Name="ROLE_ID" Type="Int64" Nullable="false" />
-          <Property Name="USER_LOG" Type="Int64" Nullable="false" />
-          <Property Name="USER_PWD" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="USER_FIRSTNAME" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="USER_LASTNAME" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="USER_MAIL" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="USER_AVATAR" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="USER_LOG" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="USER_PWD" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="USER_FIRSTNAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="USER_LASTNAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="USER_MAIL" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="USER_AVATAR" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="ROLE" Relationship="VideoDBModel.FK_USER_ROLE" FromRole="USER" ToRole="ROLE" />
           <NavigationProperty Name="STREAM" Relationship="VideoDBModel.FK_STREAM_USER" FromRole="USER" ToRole="STREAM" />
         </EntityType>
