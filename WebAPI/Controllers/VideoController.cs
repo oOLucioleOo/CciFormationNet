@@ -1,7 +1,13 @@
 ﻿
+using Entity;
+using System;
+using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Web.Hosting;
 using System.Web.Http;
+
+
 
 public class VideoController : ApiController
 {
@@ -16,4 +22,31 @@ public class VideoController : ApiController
 
         return response;
     }
+
+    [HttpPost]
+    public void uploadStream(Video video)
+    {
+        try
+        {
+            if(video.current == video.count - 1)
+            {
+                File.WriteAllBytes(string.Format(HostingEnvironment.ApplicationPhysicalPath + "StorageTemp\\" + video.name + ".mp4"), video.size);
+
+                //MemoryStream
+
+            }
+            else
+            {
+                File.WriteAllBytes(string.Format(HostingEnvironment.ApplicationPhysicalPath + "StorageTemp\\" + video.name + ".mp4"), video.size);
+            }
+
+        }
+        catch(Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+        
+        
+    }
+
 }
