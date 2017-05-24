@@ -6,13 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Forms;
 
 namespace Services
 {
     public static class UserService
     {
-        private static object MessageBox;
-
         public static long GetUsers(string login, string password)
         {
             var UserRepository = new UserRepository();
@@ -25,8 +24,8 @@ namespace Services
             {
                 MessageBox.Show("Votre login ou votre mot de passe n'est pas correct.",
                 "Erreur d'authentification",
-                MessageBoxButton.OKCancel,
-                MessageBoxImage.Warning);
+                MessageBoxButtons.OKCancel,
+                MessageBoxIcon.Warning);
             }
 
             return response;
