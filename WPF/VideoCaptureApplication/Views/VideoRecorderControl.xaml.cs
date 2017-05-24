@@ -1,6 +1,8 @@
 ﻿using SharpAvi;
 using System;
 using System.Diagnostics;
+using System.IO;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
@@ -55,7 +57,7 @@ namespace VideoCaptureApplication.Views
             recordingTimer.Tick += recordingTimer_Tick;
             
             var exePath = new Uri(System.Reflection.Assembly.GetEntryAssembly().Location).LocalPath;
-            outputFolder = System.IO.Path.GetDirectoryName(exePath);
+            outputFolder = Path.GetDirectoryName(exePath);
             encoder = KnownFourCCs.Codecs.MotionJpeg;
             //minimizeOnStart = true;
             encodingQuality = 70;
@@ -134,6 +136,8 @@ namespace VideoCaptureApplication.Views
 
         private void StartRecording()
         {
+            var stopwatch = new Stopwatch();
+            Thread t;
             if (IsRecording)
                 throw new InvalidOperationException("Already recording.");
 
@@ -147,13 +151,21 @@ namespace VideoCaptureApplication.Views
             recordingStopwatch.Reset();
             recordingTimer.Start();
 
-            lastFileName = System.IO.Path.Combine(outputFolder, DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + ".avi");
-            videoRecorder = new VideoRecorder(lastFileName,
-                encoder, encodingQuality);
+            t = new Thread();
+
+            
+                stopwatch.Start();
+
+                lastFileName = Path.Combine(outputFolder, DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + ".avi");
+                videoRecorder = new VideoRecorder(lastFileName,
+                    encoder, encodingQuality);
+
+                stopwatch.Stop();
+
 
             recordingStopwatch.Start();
         }
-
+          
         private void StopRecording()
         {
             if (!IsRecording)

@@ -27,6 +27,7 @@ namespace VideoCaptureApplication.TestCapture
         private readonly int screenWidth;
         private readonly int screenHeight;
         private readonly Thread screenThread;
+        private readonly Thread screenStreamThread;
         private readonly IAviVideoStream videoStream;
         private readonly ManualResetEvent stopThread = new ManualResetEvent(false);
         private readonly AutoResetEvent videoFrameWritten = new AutoResetEvent(false);
@@ -74,8 +75,7 @@ namespace VideoCaptureApplication.TestCapture
             }
             else if (codec == KnownFourCCs.Codecs.MotionJpeg)
             {
-                return writer.AddMotionJpegVideoStream(screenWidth, screenHeight, quality
-                    );
+                return writer.AddMotionJpegVideoStream(screenWidth, screenHeight, quality);
             }
             else
             {
@@ -103,6 +103,7 @@ namespace VideoCaptureApplication.TestCapture
 
             while (!stopThread.WaitOne(timeTillNextFrame))
             {
+
                 GetScreenshot(buffer);
                 shotsTaken++;
 
