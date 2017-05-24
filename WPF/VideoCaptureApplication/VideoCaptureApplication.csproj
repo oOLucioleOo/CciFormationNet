@@ -97,6 +97,9 @@
       <DependentUpon>ApplicationStrings.fr-FR.resx</DependentUpon>
     </Compile>
     <Compile Include="TestCapture\VideoRecorder.cs" />
+    <Compile Include="Views\AuthenticationWindow.xaml.cs">
+      <DependentUpon>AuthenticationWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\BaseControl.cs" />
     <Compile Include="Views\InputDialogSample.xaml.cs">
       <DependentUpon>InputDialogSample.xaml</DependentUpon>
@@ -135,6 +138,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\AuthenticationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\InputDialogSample.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -188,6 +195,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Entity\Entity.csproj">
+      <Project>{AB2EF369-7472-49BE-B88E-FD8DD073DF80}</Project>
+      <Name>Entity</Name>
+    </ProjectReference>
     <ProjectReference Include="..\VideoCaptureApplication.Utils\VideoCaptureApplication.Utils.csproj">
       <Project>{87772435-d579-4713-8b04-e75bd5d12d7d}</Project>
       <Name>VideoCaptureApplication.Utils</Name>
