@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MahApps.Metro.Controls.Dialogs;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
@@ -13,6 +14,7 @@ namespace VideoCaptureApplication.Views
         public MainWindow MasterWindow
         {
             get { return (MainWindow)Application.Current.MainWindow; }
+
         }
 
         public VideoRecorderControl()
@@ -62,8 +64,8 @@ namespace VideoCaptureApplication.Views
             // Configure open file dialog box
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
             dlg.FileName = "Document"; // Default file name
-            dlg.DefaultExt = ".txt"; // Default file extension
-            dlg.Filter = "Text documents (.txt)|*.txt"; // Filter files by extension
+            dlg.DefaultExt = ".avi"; // Default file extension
+            dlg.Filter = "documents (.avi)|*.avi"; // Filter files by extension
 
             // Show open file dialog box
             Nullable<bool> result = dlg.ShowDialog();
@@ -73,20 +75,24 @@ namespace VideoCaptureApplication.Views
             {
                 // Open document
                 string filename = dlg.FileName;
+                mePlayer.Source = new Uri(filename);
             }
         }
 
-        private void btnInternet_Click(object sender, RoutedEventArgs e)
+        private async void btnInternet_Click(object sender, RoutedEventArgs e)
         {
-            String Result = "Raté";
+            Uri Result;
             /*
              * http://hubblesource.stsci.edu/sources/video/clips/details/images/hst_1.mpg
              */
-            InputDialogSample inputDialog = new InputDialogSample();
+            /*InputDialogSample inputDialog = new InputDialogSample();
             if (inputDialog.ShowDialog() == true)
                 Result = inputDialog.Answer;
-            btnInternet.Content = Result;
-
+            btnInternet.Content = Result;*/
+            
+            Result = new Uri(await MasterWindow.ShowInputDialog(sender, e));
+            mePlayer.Source = Result;
+            
         }
 
         private void btnRcrdStart_Click(object sender, RoutedEventArgs e)
@@ -98,6 +104,8 @@ namespace VideoCaptureApplication.Views
         {
 
         }
+
+
     }
 
 
