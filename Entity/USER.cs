@@ -22,7 +22,7 @@ namespace Entity
     
         public long USER_ID { get; set; }
         public long ROLE_ID { get; set; }
-        public long USER_LOG { get; set; }
+        public string USER_LOG { get; set; }
         public string USER_PWD { get; set; }
         public string USER_FIRSTNAME { get; set; }
         public string USER_LASTNAME { get; set; }
