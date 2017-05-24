@@ -13,7 +13,7 @@ namespace VideoCaptureApplication.Views
             InitializeComponent();
         }
 
-        private async void BtnAuthOk_Click(object sender, RoutedEventArgs e)
+        private void BtnAuthOk_Click(object sender, RoutedEventArgs e)
         {
             //Initialize HTTP Client 
             HttpClient client = new HttpClient();
