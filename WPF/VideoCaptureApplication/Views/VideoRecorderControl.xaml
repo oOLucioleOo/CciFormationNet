@@ -25,6 +25,7 @@
             <Button Name="btnInternet" Click="btnInternet_Click">Lien Internet</Button>
             <Button Name="btnRcrdStart" Margin="5,0" Click="btnRcrdStart_Click">Start Record</Button>
             <Button Name="btnRcrdStop" Click="btnRcrdStop_Click">Stop Record</Button>
+            <Button Name="btnReadStart" Click="btnReadStart_Click">Start Reading</Button>
         </WrapPanel>
 
         <TextBlock Text="{Binding Path=Strings.VideoPageName, Source={StaticResource ApplicationResources}}" Style="{StaticResource BasicTextBlock}"></TextBlock>
