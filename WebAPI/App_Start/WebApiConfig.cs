@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Formatting;
 using System.Web.Http;
 
 namespace WebAPI
@@ -10,6 +11,7 @@ namespace WebAPI
         public static void Register(HttpConfiguration config)
         {
             // Configuration et services API Web
+            config.Formatters.Add(new BsonMediaTypeFormatter());
 
             // Itinéraires de l'API Web
             config.MapHttpAttributeRoutes();

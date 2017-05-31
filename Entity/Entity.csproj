@@ -55,6 +55,7 @@
     <Compile Include="USER.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Video.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Model.tt">

@@ -50,6 +50,20 @@ namespace VideoCaptureApplication.Views
             }
         }
 
+        //private Video vidList;
+        //public Video VideoParametter
+        //{
+        //    get
+        //    {
+        //        return this.vidList;
+        //    }
+        //    set
+        //    {
+        //        this.vidList = value;
+        //        base.RaisePropertyChanged();
+        //    }
+        //}
+
         public MainWindow MasterWindow
         {
             get { return (MainWindow)Application.Current.MainWindow; }
@@ -66,6 +80,7 @@ namespace VideoCaptureApplication.Views
 
         #region Events
 
+        //Evenement : chargement des données
         private async void ParametersControl_OnLoaded(object sender, RoutedEventArgs e)
         {
             PopulateLanguages();
@@ -78,8 +93,16 @@ namespace VideoCaptureApplication.Views
             }
 
             CurrentParameter.CurrentLanguage = LanguageList.SingleOrDefault(l => l.Code.Equals(CurrentParameter.CurrentLanguage.Code));
+            if (CurrentParameter.Quality == 0 || CurrentParameter.NbImage == 0)
+            {
+                DefaultVideos();
+            }
+
+            
+
         }
 
+        //Evenement : Changement de Langue, changer les ressources de langue
         private void LanguagesListBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (CurrentParameter.CurrentLanguage != null)
@@ -92,6 +115,31 @@ namespace VideoCaptureApplication.Views
             }
         }
 
+        private void sliderQuality_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            labelResultQuality.Text = Math.Round(sliderQuality.Value, 2).ToString() + "q";
+            if (CurrentParameter != null)
+            {
+                if (CurrentParameter != null)
+                {
+                    CurrentParameter.Quality = sliderQuality.Value;
+                }
+            }
+        }
+
+        private void sliderNbImage_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            labelResultNbImage.Text = Math.Round(sliderNbImage.Value, 2).ToString() + " img/s";
+            if (CurrentParameter != null)
+            {
+                if (CurrentParameter != null)
+                {
+                    CurrentParameter.NbImage = sliderNbImage.Value;
+                }
+            }
+        }
+
+        //Action : Bouton sauvegarder
         private async void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
             await SaveData();
@@ -138,7 +186,7 @@ namespace VideoCaptureApplication.Views
                 {
                     if (CurrentParameter != null)
                     {
-                        if (!Directory.Exists(dataPath))
+                        if (!Directory.Exists(dataPath))  //! = false
                         {
                             Directory.CreateDirectory(dataPath);
                         }
@@ -170,6 +218,13 @@ namespace VideoCaptureApplication.Views
             LanguageList.Add(new Language { Code = "en-GB", ImageUrl = "/VideoCaptureApplication;component/Assets/Images/Languages/en-GB.png", Name = "English" });
         }
 
-        #endregion 
+        private void DefaultVideos()
+        {
+                CurrentParameter.Quality = 40;
+                CurrentParameter.NbImage = 24;
+        }
+        #endregion
+
+
     }
 }

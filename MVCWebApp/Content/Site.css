@@ -1,6 +1,14 @@
-﻿body {
-    padding-top: 50px;
+﻿html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    padding-top: 60px;
     padding-bottom: 20px;
+
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -21,4 +29,38 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+.video-player {
+    /*border: 1px solid;*/
+    /*width: 100%;*/
+}
+
+.video-list ul {
+    border-left: 1px solid #BFBFBF;
+    padding: 0;
+}
+.video-list li {
+    list-style: none;
+}
+
+
+.video-list li a {
+    padding-left: 20px;
+    display: flex;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    min-height: 50px;
+    align-items: center;
+}
+
+
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
 }
