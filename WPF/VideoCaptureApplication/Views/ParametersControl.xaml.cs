@@ -50,20 +50,6 @@ namespace VideoCaptureApplication.Views
             }
         }
 
-        //private Video vidList;
-        //public Video VideoParametter
-        //{
-        //    get
-        //    {
-        //        return this.vidList;
-        //    }
-        //    set
-        //    {
-        //        this.vidList = value;
-        //        base.RaisePropertyChanged();
-        //    }
-        //}
-
         public MainWindow MasterWindow
         {
             get { return (MainWindow)Application.Current.MainWindow; }

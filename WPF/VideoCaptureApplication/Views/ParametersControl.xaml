@@ -47,7 +47,7 @@
         	Margin="20,94,643,343" Grid.Row="1" Text="Nb d'images"/>
         <TextBlock x:Name="labelResultNbImage" Style="{StaticResource BasicTextBlock}" 
         	Margin="140,94,587,343" Grid.Row="1" Text="--"/>
-        <Slider Minimum="20" Maximum="60" TickPlacement="BottomRight" TickFrequency="1" IsSnapToTickEnabled="True" x:Name="sliderNbImage" 
+        <Slider Minimum="5" Maximum="60" TickPlacement="BottomRight" TickFrequency="1" IsSnapToTickEnabled="True" x:Name="sliderNbImage" 
                 Margin="0,121,0,306" Grid.Row="1" ValueChanged="sliderNbImage_ValueChanged"  Width="700" HorizontalAlignment="Left"
                 Value="{Binding Path=CurrentParameter.NbImage, Mode=TwoWay}"/>
 
