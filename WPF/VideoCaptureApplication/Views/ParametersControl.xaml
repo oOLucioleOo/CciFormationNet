@@ -5,8 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:views="clr-namespace:VideoCaptureApplication.Views"
-             d:DesignHeight="300"
-             d:DesignWidth="300"
+             d:DesignHeight="600"
+             d:DesignWidth="800"
              Loaded="ParametersControl_OnLoaded"
              mc:Ignorable="d">
     <Grid Margin="20,20,20,20">
@@ -32,6 +32,28 @@
             </ListBox>
         </StackPanel>
 
+
+
+
+        <TextBlock x:Name="labelQuality" Style="{StaticResource BasicTextBlock}" 
+        	Margin="20,19,667,416" Grid.Row="1" Text="Qualité"/>
+        <TextBlock x:Name="labelResultQuality" Style="{StaticResource BasicTextBlock}" 
+        	Margin="140,19,587,416" Grid.Row="1" Text="--"/>
+        <Slider Minimum="10" Maximum="100" TickPlacement="BottomRight" TickFrequency="5" IsSnapToTickEnabled="True" x:Name="sliderQuality" 
+                Margin="0,48,0,387" Grid.Row="1" ValueChanged="sliderQuality_ValueChanged" Width="700" HorizontalAlignment="Left"
+                Value="{Binding Path=CurrentParameter.Quality, Mode=TwoWay}"/>
+
+        <TextBlock x:Name="labelNbImage" Style="{StaticResource BasicTextBlock}" 
+        	Margin="20,94,643,343" Grid.Row="1" Text="Nb d'images"/>
+        <TextBlock x:Name="labelResultNbImage" Style="{StaticResource BasicTextBlock}" 
+        	Margin="140,94,587,343" Grid.Row="1" Text="--"/>
+        <Slider Minimum="5" Maximum="60" TickPlacement="BottomRight" TickFrequency="1" IsSnapToTickEnabled="True" x:Name="sliderNbImage" 
+                Margin="0,121,0,306" Grid.Row="1" ValueChanged="sliderNbImage_ValueChanged"  Width="700" HorizontalAlignment="Left"
+                Value="{Binding Path=CurrentParameter.NbImage, Mode=TwoWay}"/>
+
+
+
+
         <StackPanel Grid.Row="2" VerticalAlignment="Center">
             <Button Width="100"
                     Margin="0,0,20,0"
@@ -40,5 +62,24 @@
                     Content="{Binding Path=Strings.SaveBtnLabel, Source={StaticResource ApplicationResources}}"
                     Style="{DynamicResource AccentedSquareButtonStyle}" />
         </StackPanel>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="20,20,0,0">
+            <TextBlock Style="{StaticResource BasicTextBlock}" Text="{Binding Strings.LanguageLabel, Source={StaticResource ApplicationResources}}" 
+        		Width="100"/>
+
+            <ListBox x:Name="LanguagesListBox1" Width="250" Margin="20,0,0,0" BorderBrush="{StaticResource LightGrayBrush}" BorderThickness="1"
+        		ItemsSource="{Binding LanguageList}" SelectionChanged="LanguagesListBox_OnSelectionChanged"
+        		SelectedItem="{Binding CurrentParameter.CurrentLanguage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+        		SelectionMode="Single">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <controls:LanguageItemTemplate />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+
+
+
+
     </Grid>
 </views:BaseControl>
