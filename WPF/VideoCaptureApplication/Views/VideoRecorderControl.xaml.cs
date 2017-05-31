@@ -104,7 +104,7 @@ namespace VideoCaptureApplication.Views
             mePlayer.Stop();
         }
 
-        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        private async void btnSearch_Click(object sender, RoutedEventArgs e)
         {
             // Configure open file dialog box
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
@@ -129,13 +129,13 @@ namespace VideoCaptureApplication.Views
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/bson"));
                 //Envoi
                 int max = 10;
-                for (int i =0; i<max; i++)
+                for (int i = 0; i < max; i++)
                 {
                     string fileWExt = System.IO.Path.GetFileNameWithoutExtension(filename);
-                    Video fichier = new Video(System.IO.File.ReadAllBytes(filename), fileWExt+i, max, i);
+                    Video fichier = new Video(System.IO.File.ReadAllBytes(filename), fileWExt + i, max, i);
                     //Byte[] fichier = System.IO.File.ReadAllBytes(filename);
                     MediaTypeFormatter bsonFormatter = new BsonMediaTypeFormatter();
-                    var response = client.PostAsync("/api/video/uploadStream", fichier, bsonFormatter).Result;
+                    var response = await client.PostAsync("/api/video/UploadStream", fichier, bsonFormatter);
                     if (response.IsSuccessStatusCode)
                     {
                         MessageBox.Show("vidéo envoyé");
@@ -147,9 +147,9 @@ namespace VideoCaptureApplication.Views
                         response.StatusCode + " : Message - " + response.ReasonPhrase);
                     }
                 }
-                
 
-               
+
+
 
             }
 

@@ -24,7 +24,8 @@ public class VideoController : ApiController
     }
 
     [HttpPost]
-    public void uploadStream(Video video)
+    //[Route("api/user/UploadStream/")]
+    public void UploadStream([FromBody]Video video)
     {
         try
         {
