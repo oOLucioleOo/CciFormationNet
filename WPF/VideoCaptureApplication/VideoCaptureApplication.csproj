@@ -100,7 +100,6 @@
       <DependentUpon>LanguageItemTemplate.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Base\BaseModel.cs" />
-    <Compile Include="Models\Video.cs" />
     <Compile Include="Models\Language.cs" />
     <Compile Include="Models\Parameter.cs" />
     <Compile Include="Resources\ApplicationResources.cs" />
