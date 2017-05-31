@@ -137,7 +137,6 @@ namespace VideoCaptureApplication.Views
         private void StartRecording()
         {
             var stopwatch = new Stopwatch();
-            Thread t;
             if (IsRecording)
                 throw new InvalidOperationException("Already recording.");
 
@@ -150,22 +149,27 @@ namespace VideoCaptureApplication.Views
 
             recordingStopwatch.Reset();
             recordingTimer.Start();
-
-            t = new Thread();
-
             
-                stopwatch.Start();
+            stopwatch.Start();
 
-                lastFileName = Path.Combine(outputFolder, DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + ".avi");
-                videoRecorder = new VideoRecorder(lastFileName,
-                    encoder, encodingQuality);
+            lastFileName = Path.Combine(outputFolder, DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + ".avi");
+            videoRecorder = new VideoRecorder(lastFileName, encoder, encodingQuality);
 
-                stopwatch.Stop();
-
+            stopwatch.Stop();
 
             recordingStopwatch.Start();
         }
-          
+
+        private void StartReading()
+        {
+            FileStream fs = File.Open(lastFileName, FileMode.OpenOrCreate,FileAccess.Read,FileShare.ReadWrite);
+
+            byte[] toSend = new byte[512];
+            
+            var retour = fs.ReadAsync(toSend, 0, 512);
+
+        }
+
         private void StopRecording()
         {
             if (!IsRecording)
@@ -198,6 +202,11 @@ namespace VideoCaptureApplication.Views
         private void btnRcrdStop_Click(object sender, RoutedEventArgs e)
         {
             StopRecording();
-        }   
+        }
+
+        private void btnReadStart_Click(object sender, RoutedEventArgs e)
+        {
+            StartReading();
+        }
     }
 }
