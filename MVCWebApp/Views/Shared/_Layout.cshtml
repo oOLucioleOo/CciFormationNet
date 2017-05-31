@@ -21,69 +21,24 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Accueil", "Index", "Home")</li>
                     <li>@Html.ActionLink("À propos de", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
             </div>
         </div>
     </div>
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        
+        <footer class="footer">
+            <p>&copy; @DateTime.Now.Year - MS2I StreamApp</p>
         </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/signalR")
-    <script type="text/javascript">
+    @Scripts.Render("~/bundles/js")
 
-        $(function() {
-            // With the generated proxy :
-            //$.connection.hub.url = "http://localhost:63315/signalr";
-            //var streamHubProxy = $.connection.streamHub;
-            //streamHubProxy.client.sendMessage = function (name, message) {
-            //    console.log(name + ' ' + message);
-            //};
-            //$.connection.hub.start().done(function () {
-            //    // Wire up Send button to call SendMessage on the server.
-            //    $('#sendMessage').click(function () {
-            //        streamHubProxy.server.sendMessage($('#displayname').val(), $('#message').val());
-            //        $('#message').val('').focus();
-            //    });
-            //});
-        
-
-        
-        
-        // Without the generated proxy
-
-            var connection = $.hubConnection('http://localhost:63315/signalr');
-            var streamHubProxy = connection.createHubProxy('streamHub');
-            streamHubProxy.on('sendMessage', function(name, message) {
-                console.log(name + ' ' + message);
-                $('#discussion').html("<ul>" + name + " : "+ message + "</ul>")
-            });
-            var test = connection.start();
-
-            test.done(function() {
-                // Wire up Send button to call SendMessage on the server.
-                $('#sendMessage').click(function() {
-                    streamHubProxy.invoke('sendMessage', $('#displayname').val(), $('#message').val());
-                    $('#message').val('').focus();
-                });
-            });
-
-            test.fail(function (a, b, c) {
-                console.log('ERROR');
-            });
-
-
-        });
-    </script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

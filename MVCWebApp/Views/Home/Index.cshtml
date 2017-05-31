@@ -2,27 +2,40 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
-
 <div class="row">
-    <div class="col-md-12">
-        <video width="480" height="320" controls="controls" autoplay="autoplay">
+    @*<div class="col-md-12 text-center">
+        <video height="480" controls="controls" autoplay="autoplay">
             <source src="http://localhost:63315/api/video/mp4/videotest" type="video/mp4">
             ça marche pas
         </video>
-    </div>
+    </div>*@
     
+    <div class="col-md-9">
+        <div id="video-player" class="video-player">
+            
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="video-list">
+            <ul>
+                <li><a href="#" class="video-link" data-link="http://localhost:63315/api/video/mp4/videotest" data-type="video/mp4">Première vidéo</a></li>
+                <li><a href="#">Deuxième vidéo</a></li>
+                <li><a href="#">Troisième vidéo</a></li>
+                <li><a href="#">Quatrième vidéo</a></li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+@*<div class="row">
     <div class="col-md-12">
         <input type="text" id="message" />
         <input type="button" id="sendMessage" value="Send" />
         <input type="hidden" id="displayname" value="Inkod" />
         <ul id="discussion"></ul>
     </div>
-</div>
+</div>*@
 
 
 

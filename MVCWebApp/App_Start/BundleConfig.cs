@@ -29,7 +29,11 @@ namespace MVCWebApp
 
             bundles.Add(new ScriptBundle("~/bundles/signalR").Include(
                 "~/Scripts/jquery.signalR*",
-                "~/signalr/hubs"));
+                "~/signalr/hubs",
+                "~/Scripts/streamhub.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/js").Include(
+                "~/Scripts/stream.js"));
         }
     }
 }
