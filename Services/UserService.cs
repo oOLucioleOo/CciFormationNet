@@ -21,7 +21,10 @@ namespace Services
 
             if (response == 0)
             {
-
+                //MessageBox.Show("Votre login ou votre mot de passe n'est pas correct.",
+                //"Erreur d'authentification",
+                //MessageBoxButton.OKCancel,
+                //MessageBoxImage.Warning);
             }
 
             return response;
