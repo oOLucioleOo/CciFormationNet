@@ -29,5 +29,9 @@
         </metro:MetroAnimatedTabControl>
 
         <controls:BusyIndicator x:Name="MainBusyIndicator" Visibility="Hidden" LoaderText="{Binding Path=Strings.Loadingtext, Source={StaticResource ApplicationResources}}" />
+
+        
+        
     </Grid>
+
 </metro:MetroWindow>

@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:VideoCaptureApplication"
              xmlns:resources="clr-namespace:VideoCaptureApplication.Resources"
-             StartupUri="MainWindow.xaml">
+             StartupUri="Views/AuthenticationWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
