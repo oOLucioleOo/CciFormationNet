@@ -1,8 +1,14 @@
 ﻿using MahApps.Metro.Controls.Dialogs;
 using System;
+using System.Net.Http;
+using System.Net.Http.Formatting;
+using System.Net.Http.Headers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
+using Entity;
+
+
 
 namespace VideoCaptureApplication.Views
 {
@@ -64,8 +70,8 @@ namespace VideoCaptureApplication.Views
             // Configure open file dialog box
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
             dlg.FileName = "Document"; // Default file name
-            dlg.DefaultExt = ".avi"; // Default file extension
-            dlg.Filter = "documents (.avi)|*.avi"; // Filter files by extension
+            dlg.DefaultExt = ".mp4"; // Default file extension
+            dlg.Filter = "documents (.mp4)|*.mp4"; // Filter files by extension
 
             // Show open file dialog box
             Nullable<bool> result = dlg.ShowDialog();
@@ -76,7 +82,38 @@ namespace VideoCaptureApplication.Views
                 // Open document
                 string filename = dlg.FileName;
                 mePlayer.Source = new Uri(filename);
+
+                //Création du client http
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri("Http://localhost:63315");
+                //Header du client
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/bson"));
+                //Envoi
+                int max = 10;
+                for (int i =0; i<max; i++)
+                {
+                    string fileWExt = System.IO.Path.GetFileNameWithoutExtension(filename);
+                    Video fichier = new Video(System.IO.File.ReadAllBytes(filename), fileWExt+i, max, i);
+                    //Byte[] fichier = System.IO.File.ReadAllBytes(filename);
+                    MediaTypeFormatter bsonFormatter = new BsonMediaTypeFormatter();
+                    var response = client.PostAsync("/api/video/uploadStream", fichier, bsonFormatter).Result;
+                    if (response.IsSuccessStatusCode)
+                    {
+                        MessageBox.Show("vidéo envoyé");
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error Code" +
+                        response.StatusCode + " : Message - " + response.ReasonPhrase);
+                    }
+                }
+                
+
+               
+
             }
+
         }
 
         private async void btnInternet_Click(object sender, RoutedEventArgs e)
