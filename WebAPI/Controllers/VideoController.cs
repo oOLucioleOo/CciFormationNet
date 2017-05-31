@@ -44,9 +44,20 @@ public class VideoController : ApiController
         catch(Exception ex)
         {
             Console.WriteLine(ex.Message);
+        }  
+    }
+
+    private void concatenateVideo()
+    {
+        try
+        {
+            FileStream fsAll = new FileStream("video.mp4", FileMode.Create);
+
         }
-        
-        
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
     }
 
 }
