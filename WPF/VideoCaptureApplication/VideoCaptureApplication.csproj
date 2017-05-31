@@ -83,6 +83,7 @@
       <DependentUpon>LanguageItemTemplate.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Base\BaseModel.cs" />
+    <Compile Include="Models\Video.cs" />
     <Compile Include="Models\Language.cs" />
     <Compile Include="Models\Parameter.cs" />
     <Compile Include="Resources\ApplicationResources.cs" />
@@ -175,7 +176,7 @@
       <LastGenOutput>ApplicationStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <Content Include="DataFiles\parameters.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -205,6 +206,7 @@
     </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ProjectExtensions />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
