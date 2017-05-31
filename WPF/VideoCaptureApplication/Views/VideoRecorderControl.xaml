@@ -18,7 +18,7 @@
         <TextBlock Grid.Row="0" Text="{Binding Path=Strings.VideoPageName, Source={StaticResource ApplicationResources}}" Style="{StaticResource BasicTextBlock}"></TextBlock>
 
         <WrapPanel HorizontalAlignment="Center" Grid.Row="1">
-            <Button Name="btnPlay" Click="btnPlay_Click">Play</Button>
+            <Button x:Name="btnPlay" Click="btnPlay_Click">Play</Button>
             <Button Name="btnPause" Margin="5,0" Click="btnPause_Click">Pause</Button>
             <Button Name="btnStop" Click="btnStop_Click">Stop</Button>
             <Button Name="btnSearch" Margin="5,0" Click="btnSearch_Click">Rechercher</Button>
@@ -30,7 +30,7 @@
 
         <TextBlock Text="{Binding Path=Strings.VideoPageName, Source={StaticResource ApplicationResources}}" Style="{StaticResource BasicTextBlock}"></TextBlock>
 
-        <MediaElement Grid.Row="2"  Source="http://hubblesource.stsci.edu/sources/video/clips/details/images/hst_1.mpg" LoadedBehavior="Manual" Name="mePlayer" Margin="10,10,10,47" />
+        <MediaElement Grid.Row="2" LoadedBehavior="Manual" x:Name="mePlayer" Margin="10,10,10,47" />
 
         <Label Grid.Row="3" Name="lblStatus" Content="Not playing..." HorizontalContentAlignment="Center"/>
 
