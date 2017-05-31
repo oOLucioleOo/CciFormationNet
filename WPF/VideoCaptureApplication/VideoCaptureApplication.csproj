@@ -114,6 +114,9 @@
       <DependentUpon>ApplicationStrings.fr-FR.resx</DependentUpon>
     </Compile>
     <Compile Include="TestCapture\VideoRecorder.cs" />
+    <Compile Include="Views\AuthenticationWindow.xaml.cs">
+      <DependentUpon>AuthenticationWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\BaseControl.cs" />
     <Compile Include="Views\InputDialogSample.xaml.cs">
       <DependentUpon>InputDialogSample.xaml</DependentUpon>
@@ -152,6 +155,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\AuthenticationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\InputDialogSample.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
