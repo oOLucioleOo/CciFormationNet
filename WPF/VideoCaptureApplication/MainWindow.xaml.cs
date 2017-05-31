@@ -3,6 +3,7 @@ using MahApps.Metro.Controls;
 using VideoCaptureApplication.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace VideoCaptureApplication
 {
@@ -25,10 +26,16 @@ namespace VideoCaptureApplication
              return await this.ShowInputAsync("Lecture vidéo par URL", "Veuillez saisir le lien de la vidéo :");
 
             //if (Result == null) //user pressed cancel
-            //    return null;
-            
-
-            
+            //    return null; 
+        }
+        
+        private void AuthWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            Views.AuthenticationWindow win2 = new Views.AuthenticationWindow();
+            win2.Show();
+            //win2.ShowActivated = true;
+            win2.Topmost = true;
+            win2.DragMove();
         }
     }
 }

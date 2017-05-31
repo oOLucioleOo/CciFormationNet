@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Forms;
 
 namespace Services
 {
@@ -19,15 +20,15 @@ namespace Services
 
             var response = user.USER_ID;
 
-            if (response == 0)
+            try
             {
-                //MessageBox.Show("Votre login ou votre mot de passe n'est pas correct.",
-                //"Erreur d'authentification",
-                //MessageBoxButton.OKCancel,
-                //MessageBoxImage.Warning);
+                return response;
             }
-
-            return response;
+            catch(Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return 0;
+            }
         }
       
     }
