@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Forms;
 
 namespace Services
 {
@@ -22,10 +21,7 @@ namespace Services
 
             if (response == 0)
             {
-                MessageBox.Show("Votre login ou votre mot de passe n'est pas correct.",
-                "Erreur d'authentification",
-                MessageBoxButtons.OKCancel,
-                MessageBoxIcon.Warning);
+
             }
 
             return response;

@@ -27,12 +27,13 @@ namespace VideoCaptureApplication.TestCapture
         private readonly int screenWidth;
         private readonly int screenHeight;
         private readonly Thread screenThread;
+        private readonly Thread screenStreamThread;
         private readonly IAviVideoStream videoStream;
         private readonly ManualResetEvent stopThread = new ManualResetEvent(false);
         private readonly AutoResetEvent videoFrameWritten = new AutoResetEvent(false);
 
 
-        public VideoRecorder(string fileName,FourCC codec, int quality)
+        public VideoRecorder(string fileName,FourCC codec, int quality,int fps)
         {
             System.Windows.Media.Matrix toDevice;
             using (var source = new HwndSource(new HwndSourceParameters()))
@@ -46,7 +47,7 @@ namespace VideoCaptureApplication.TestCapture
             // Create AVI writer and specify FPS
             writer = new AviWriter(fileName)
             {
-                FramesPerSecond = 10,
+                FramesPerSecond = fps,
                 EmitIndex1 = true,
             };
 
@@ -74,8 +75,7 @@ namespace VideoCaptureApplication.TestCapture
             }
             else if (codec == KnownFourCCs.Codecs.MotionJpeg)
             {
-                return writer.AddMotionJpegVideoStream(screenWidth, screenHeight, quality
-                    );
+                return writer.AddMotionJpegVideoStream(screenWidth, screenHeight, quality);
             }
             else
             {
@@ -103,6 +103,7 @@ namespace VideoCaptureApplication.TestCapture
 
             while (!stopThread.WaitOne(timeTillNextFrame))
             {
+
                 GetScreenshot(buffer);
                 shotsTaken++;
 
@@ -156,6 +157,17 @@ namespace VideoCaptureApplication.TestCapture
                 // Should also capture the mouse cursor here, but skipping for simplicity
                 // For those who are interested, look at http://www.codeproject.com/Articles/12850/Capturing-the-Desktop-Screen-with-the-Mouse-Cursor
             }
+        }
+
+        public void Dispose()
+        {
+            stopThread.Set();
+            screenThread.Join();
+
+            // Close writer: the remaining data is written to a file and file is closed
+            writer.Close();
+
+            stopThread.Close();
         }
 
     }

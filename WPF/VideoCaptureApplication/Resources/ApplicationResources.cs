@@ -33,5 +33,6 @@ namespace VideoCaptureApplication.Resources
 
             RaisePropertyChanged(nameof(Strings));
         }
+       
     }
 }
