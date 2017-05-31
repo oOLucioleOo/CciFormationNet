@@ -203,10 +203,11 @@ namespace VideoCaptureApplication.Views
         {
             FileStream fs = File.Open(lastFileName, FileMode.OpenOrCreate,FileAccess.Read,FileShare.ReadWrite);
 
-            byte[] toSend = new byte[512];
+            char[] toSend = new char[512];
             
-            var retour = fs.ReadAsync(toSend, 0, 512);
-
+            var sw = new StreamWriter(fs);
+            var sr = new StreamReader(fs);
+            sr.ReadAsync(toSend, 0, 512);
         }
 
         private void StopRecording()
