@@ -26,6 +26,14 @@ namespace MVCWebApp
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/signalR").Include(
+                "~/Scripts/jquery.signalR*",
+                "~/signalr/hubs",
+                "~/Scripts/streamhub.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/js").Include(
+                "~/Scripts/stream.js"));
         }
     }
 }

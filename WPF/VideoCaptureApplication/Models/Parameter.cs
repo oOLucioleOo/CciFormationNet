@@ -17,5 +17,21 @@ namespace VideoCaptureApplication.Models
                 this.RaisePropertyChanged();
             }
         }
+        public double Quality { get; set; }
+        public double NbImage { get; set; }
+
+        //private Video currentVideo;
+        //public Video CurrentVideo
+        //{
+        //    get
+        //    {
+        //        return this.currentVideo;
+        //    }
+        //    set
+        //    {
+        //        this.currentVideo = value;
+        //        this.RaisePropertyChanged();
+        //    }
+        //}
     }
 }
