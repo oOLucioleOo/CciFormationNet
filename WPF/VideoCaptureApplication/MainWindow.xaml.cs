@@ -35,7 +35,6 @@ namespace VideoCaptureApplication
             win2.Show();
             //win2.ShowActivated = true;
             win2.Topmost = true;
-            win2.DragMove();
         }
     }
 }
