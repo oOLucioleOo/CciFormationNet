@@ -33,6 +33,10 @@ public class VideoController : ApiController
                 File.WriteAllBytes(string.Format(HostingEnvironment.ApplicationPhysicalPath + "StorageTemp\\" + video.name + ".mp4"), video.size);
 
                 //MemoryStream
+                /*if (concatenateVideo(video))
+                {
+                    Console.WriteLine("Enregistrement de la video");
+                }*/
 
             }
             else
@@ -47,16 +51,22 @@ public class VideoController : ApiController
         }  
     }
 
-    private void concatenateVideo()
+    private Boolean concatenateVideo(Video video)
     {
         try
         {
             FileStream fsAll = new FileStream("video.mp4", FileMode.Create);
-
+            for(int i =0; i<video.count-1; i++)
+            {
+                FileStream fs = new FileStream(string.Format(HostingEnvironment.ApplicationPhysicalPath + "StorageTemp\\Good morning gif"+i+".mp4"), FileMode.Open);
+                fs.CopyTo(fsAll);
+            }
+            return true;
         }
         catch (Exception ex)
         {
             Console.WriteLine(ex.Message);
+            return false;
         }
     }
 
