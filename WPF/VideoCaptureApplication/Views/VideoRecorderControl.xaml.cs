@@ -1,12 +1,10 @@
-﻿using MahApps.Metro.Controls.Dialogs;
-using SharpAvi;
+﻿using SharpAvi;
 using System;
 using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Diagnostics;
 using System.IO;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
@@ -164,12 +162,9 @@ namespace VideoCaptureApplication.Views
              * http://hubblesource.stsci.edu/sources/video/clips/details/images/hst_1.mpg
              */
             
-            InputDialogSample inputDialog = new InputDialogSample();
             /*InputDialogSample inputDialog = new InputDialogSample();
             if (inputDialog.ShowDialog() == true)
-                Result = inputDialog.Answer;
-            btnInternet.Content = Result;
-            
+            Result = inputDialog.Answer;
             btnInternet.Content = Result;*/
             
             Result = new Uri(await MasterWindow.ShowInputDialog(sender, e));
@@ -197,7 +192,7 @@ namespace VideoCaptureApplication.Views
             stopwatch.Start();
 
             lastFileName = Path.Combine(outputFolder, DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + ".avi");
-            videoRecorder = new VideoRecorder(lastFileName, encoder, encodingQuality);
+            videoRecorder = new VideoRecorder(lastFileName, encoder, encodingQuality,10);
 
             stopwatch.Stop();
 

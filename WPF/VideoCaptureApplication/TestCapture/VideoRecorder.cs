@@ -33,7 +33,7 @@ namespace VideoCaptureApplication.TestCapture
         private readonly AutoResetEvent videoFrameWritten = new AutoResetEvent(false);
 
 
-        public VideoRecorder(string fileName,FourCC codec, int quality)
+        public VideoRecorder(string fileName,FourCC codec, int quality,int fps)
         {
             System.Windows.Media.Matrix toDevice;
             using (var source = new HwndSource(new HwndSourceParameters()))
@@ -47,7 +47,7 @@ namespace VideoCaptureApplication.TestCapture
             // Create AVI writer and specify FPS
             writer = new AviWriter(fileName)
             {
-                FramesPerSecond = 10,
+                FramesPerSecond = fps,
                 EmitIndex1 = true,
             };
 
