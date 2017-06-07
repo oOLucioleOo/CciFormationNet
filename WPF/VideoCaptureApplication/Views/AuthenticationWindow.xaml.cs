@@ -32,9 +32,6 @@ namespace VideoCaptureApplication.Views
             InitializeComponent();
         }
 
-
-
-
         private void AuthenticationWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
             InitializeComponent();
