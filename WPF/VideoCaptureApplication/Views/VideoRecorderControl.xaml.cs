@@ -277,6 +277,10 @@ namespace VideoCaptureApplication.Views
             StartReading();
         }
 
+        private void btnSignalR_Click(object sender, RoutedEventArgs e)
+        {
+            // code here
+        }
 
     }
 }
