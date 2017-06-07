@@ -18,6 +18,10 @@ using SharpAvi.Output;
 // Contains types related to encoding like Mpeg4VideoEncoderVcm
 using SharpAvi.Codecs;
 using System.IO;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using Entity;
+using System.Net.Http.Formatting;
 
 namespace VideoCaptureApplication.TestCapture
 {
@@ -50,14 +54,14 @@ namespace VideoCaptureApplication.TestCapture
             screenWidth = (int)Math.Round(SystemParameters.PrimaryScreenWidth * toDevice.M11);
             screenHeight = (int)Math.Round(SystemParameters.PrimaryScreenHeight * toDevice.M22);
 
+            this.fileName = fileName;
+
             // Create AVI writer and specify FPS
-            writer = new AviWriter(fileName)
+            writer = new AviWriter(Path.GetFileNameWithoutExtension(this.fileName) + 0 + Path.GetExtension(this.fileName))
             {
                 FramesPerSecond = fps,
                 EmitIndex1 = true,
             };
-
-            this.fileName = fileName;
 
             this.codec = codec;
             this.fps = fps;
@@ -102,7 +106,7 @@ namespace VideoCaptureApplication.TestCapture
             }
         }
 
-        private void RecordScreen()
+        private  void RecordScreen()
         {
             var stopwatch = new Stopwatch();
             var buffer = new byte[screenWidth * screenHeight * 4];
@@ -116,7 +120,6 @@ namespace VideoCaptureApplication.TestCapture
 
             while (!stopThread.WaitOne(timeTillNextFrame))
             {
-                
                 while (!stopThreadChunk.WaitOne(timeTillNextFrame))
                 {
                     GetScreenshot(buffer);
@@ -154,17 +157,26 @@ namespace VideoCaptureApplication.TestCapture
                     }
                 }
                 stopThreadChunk.Reset();
-                chunkNumber++;
+                
 
                 this.writer.Close();
+
+                //Appel de la méthode sendVideoToAPI
+                Thread sendingThread = new Thread(sendVideoToAPI)
+                {
+                    Name = typeof(Video).Name + ".sendingThread",
+                    IsBackground = true
+                };
+
+                sendingThread.Start(Path.GetFileNameWithoutExtension(fileName) + chunkNumber, chunkNumber);
+
+                chunkNumber++;
                 // Create AVI writer and specify FPS
                 this.writer = new AviWriter(Path.GetFileNameWithoutExtension(this.fileName) + chunkNumber + Path.GetExtension(this.fileName))
                 {
                     FramesPerSecond = this.fps,
                     EmitIndex1 = true,
                 };
-
-                this.fileName = this.fileName;
 
                 // Create video stream
                 videoStream = CreateVideoStream(this.codec, this.quality);
@@ -185,6 +197,7 @@ namespace VideoCaptureApplication.TestCapture
 
             }
         }
+        
 
         private void GetScreenshot(byte[] buffer)
         {
@@ -212,6 +225,37 @@ namespace VideoCaptureApplication.TestCapture
             stopThread.Close();
 
             stopThreadChunk.Close();
+        }
+
+        private void sendVideoToAPI(string fileName, int chunkNumber)
+        {
+            try
+            {
+                //Création du client http
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri("Http://localhost:63315");
+
+                //Header du client
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/bson"));
+
+
+                //Sauvegarde du content dans une variable
+                string videoFilename = Path.GetFileNameWithoutExtension(fileName) + chunkNumber;
+                Byte[] content = File.ReadAllBytes(videoFilename);
+
+                //Création de l'objet video avec le filename sans incrémentation
+                Video fichier = new Video(content, Path.GetFileNameWithoutExtension(fileName), false, chunkNumber);
+
+                //Envoi de la video
+                MediaTypeFormatter bsonFormatter = new BsonMediaTypeFormatter();
+                //var response = await client.PostAsync("/api/video/uploadStream", fichier, bsonFormatter);
+                
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            
         }
 
     }
