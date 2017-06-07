@@ -41,7 +41,7 @@ public class VideoController : ApiController
         try
         {
             //Sauvegarde du fichier reçu dans le StorageTemp
-            File.WriteAllBytes(string.Format(HostingEnvironment.ApplicationPhysicalPath + "StorageTemp\\" + video.name + ".mp4"), video.size);
+            File.WriteAllBytes(string.Format(HostingEnvironment.ApplicationPhysicalPath + "StorageTemp\\" + video.name + ".mp4"), video.content);
         }
         catch(Exception ex)
         {

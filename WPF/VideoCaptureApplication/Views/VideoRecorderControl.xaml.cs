@@ -158,10 +158,19 @@ namespace VideoCaptureApplication.Views
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/bson"));
                 //Envoi
                 int max = 10;
+                Video fichier;
                 for (int i = 0; i < max; i++)
                 {
                     string fileWExt = System.IO.Path.GetFileNameWithoutExtension(filename);
-                    Video fichier = new Video(System.IO.File.ReadAllBytes(filename), fileWExt + i, max, i);
+                    if(i == max - i)
+                    {
+                        fichier = new Video(System.IO.File.ReadAllBytes(filename), fileWExt + i, true, i);
+                    }
+                    else
+                    {
+                        fichier = new Video(System.IO.File.ReadAllBytes(filename), fileWExt + i, false, i);
+                    }
+                    
                     //Byte[] fichier = System.IO.File.ReadAllBytes(filename);
                     MediaTypeFormatter bsonFormatter = new BsonMediaTypeFormatter();
                     var response = await client.PostAsync("/api/video/uploadStream", fichier, bsonFormatter);
