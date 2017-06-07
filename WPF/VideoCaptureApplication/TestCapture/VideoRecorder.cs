@@ -119,6 +119,11 @@ namespace VideoCaptureApplication.TestCapture
                 }
 
                 // Start asynchronous (encoding and) writing of the new frame
+                if(buffer.Length> 1024)
+                {
+                    Console.WriteLine("coucou"+videoStream.FramesWritten);
+                    Console.WriteLine("bonjour" + videoStream.Width*videoStream.Height*(int)videoStream.BitsPerPixel*videoStream.FramesWritten);
+                }
                 videoWriteTask = videoStream.WriteFrameAsync(true, buffer, 0, buffer.Length);
 
                 //videoWriteResult = videoStream.BeginWriteFrame(true, buffer, 0, buffer.Length, null, null);
