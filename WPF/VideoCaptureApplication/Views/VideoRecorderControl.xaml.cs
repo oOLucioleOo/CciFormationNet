@@ -9,6 +9,15 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
 using Entity;
+using Newtonsoft.Json;
+using VideoCaptureApplication.Models;
+using VideoCaptureApplication.Utils.Constants;
+using VideoCaptureApplication.Utils.Helpers;
+
+
+
+
+
 
 using VideoCaptureApplication.TestCapture;
 
@@ -19,6 +28,10 @@ namespace VideoCaptureApplication.Views
     /// </summary>
     public partial class VideoRecorderControl : UserControl
     {
+        private Parameter currentParameter;
+        private string dataPath = string.Empty;
+        public Parameter CurrentParameter { get; set; }
+
         private static readonly DependencyPropertyKey IsRecordingPropertyKey =
             DependencyProperty.RegisterReadOnly("IsRecording", typeof(bool), typeof(MainWindow), new PropertyMetadata(false));
         public static readonly DependencyProperty IsRecordingProperty = IsRecordingPropertyKey.DependencyProperty;
@@ -36,7 +49,6 @@ namespace VideoCaptureApplication.Views
         private readonly Stopwatch recordingStopwatch = new Stopwatch();
         private string outputFolder;
         private FourCC encoder;
-        private int encodingQuality;
         private bool minimizeOnStart;
 
         private readonly DispatcherTimer recordingTimer;
@@ -63,9 +75,7 @@ namespace VideoCaptureApplication.Views
             var exePath = new Uri(System.Reflection.Assembly.GetEntryAssembly().Location).LocalPath;
             outputFolder = Path.GetDirectoryName(exePath);
             encoder = KnownFourCCs.Codecs.MotionJpeg;
-            //minimizeOnStart = true;
-            encodingQuality = 70;
-
+            //minimizeOnStart = true;      
             DispatcherTimer timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += timer_Tick;
@@ -73,10 +83,29 @@ namespace VideoCaptureApplication.Views
 
         }
 
+        #region Parameter_Quality
+
         private void VideoRecorderControl_OnLoaded(object sender, RoutedEventArgs e)
         {
-
+            InitializeComponent();
+            dataPath = $@"{StringUtils.GetAppRootDirectory}\{AppConstants.FilesFolder}\";
+            this.DataContext = this;
+            CurrentParameter = new Parameter();
+            CurrentParameter = JsonUtils.ReadJsonFile(dataPath, typeof(Parameter)) as Parameter;
+            if (CurrentParameter.Quality == 0 || CurrentParameter.NbImage == 0)
+            {
+                DefaultVideos();
+            }
+            CurrentParameter.Quality = Math.Round(CurrentParameter.Quality, 0);
+            CurrentParameter.NbImage = Math.Round(CurrentParameter.NbImage, 0);
         }
+
+        private void DefaultVideos()
+        {
+            CurrentParameter.Quality = 40;
+            CurrentParameter.NbImage = 24;
+        }
+        #endregion
 
         void timer_Tick(object sender, EventArgs e)
         {
@@ -192,7 +221,7 @@ namespace VideoCaptureApplication.Views
             stopwatch.Start();
 
             lastFileName = Path.Combine(outputFolder, DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + ".avi");
-            videoRecorder = new VideoRecorder(lastFileName, encoder, encodingQuality,10);
+            videoRecorder = new VideoRecorder(lastFileName, encoder, (int)CurrentParameter.Quality, (int)CurrentParameter.NbImage);
 
             stopwatch.Stop();
 
@@ -255,5 +284,7 @@ namespace VideoCaptureApplication.Views
         {
             StartReading();
         }
+
+
     }
 }
