@@ -220,7 +220,7 @@ namespace VideoCaptureApplication.Views
             
             stopwatch.Start();
 
-            lastFileName = Path.Combine(outputFolder, DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + ".avi");
+            lastFileName = Path.Combine(outputFolder, DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss")+"_.avi");
             videoRecorder = new VideoRecorder(lastFileName, encoder, (int)CurrentParameter.Quality, (int)CurrentParameter.NbImage);
 
             stopwatch.Stop();
