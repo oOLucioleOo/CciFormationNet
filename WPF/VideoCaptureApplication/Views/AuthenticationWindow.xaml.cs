@@ -64,6 +64,16 @@ namespace VideoCaptureApplication.Views
                 HttpResponseMessage wcfResponse = await httpClient.PostAsJsonAsync(resourceAddress, user);
                 if (wcfResponse.IsSuccessStatusCode)
                 {
+                    var Respstring = await wcfResponse.Content.ReadAsStringAsync();
+                    long userId = long.Parse(Respstring);
+                    if (userId == 0)
+                    {
+                        MessageBox.Show("Votre login ou votre mot de passe n'est pas correct !!");
+                    }
+                    else
+                    {
+                        this.Close();
+                    }
                     MessageBox.Show("reponse du serveur OK");
                     if (CheckBoxSave.IsChecked.Value == false)
                     {
