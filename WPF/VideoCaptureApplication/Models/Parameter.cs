@@ -45,5 +45,31 @@ namespace VideoCaptureApplication.Models
                 this.RaisePropertyChanged();
             }
         }
+        private string login;
+        public string Login
+        {
+            get
+            {
+                return this.login;
+            }
+            set
+            {
+                this.login = value;
+                this.RaisePropertyChanged();
+            }
+        }
+        private string pwd;
+        public string Pwd
+        {
+            get
+            {
+                return this.pwd;
+            }
+            set
+            {
+                this.pwd = value;
+                this.RaisePropertyChanged();
+            }
+        }
     }
 }

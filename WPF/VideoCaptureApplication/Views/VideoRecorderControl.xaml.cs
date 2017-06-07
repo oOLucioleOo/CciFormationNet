@@ -133,13 +133,13 @@ namespace VideoCaptureApplication.Views
             mePlayer.Stop();
         }
 
-        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        private async void btnSearch_Click(object sender, RoutedEventArgs e)
         {
             // Configure open file dialog box
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
             dlg.FileName = "Document"; // Default file name
-            dlg.DefaultExt = ".mp4"; // Default file extension
-            dlg.Filter = "documents (.mp4)|*.mp4"; // Filter files by extension
+            dlg.DefaultExt = ".avi"; // Default file extension
+            dlg.Filter = "documents (.avi)|*.avi"; // Filter files by extension
 
             // Show open file dialog box
             Nullable<bool> result = dlg.ShowDialog();
@@ -158,13 +158,22 @@ namespace VideoCaptureApplication.Views
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/bson"));
                 //Envoi
                 int max = 10;
-                for (int i =0; i<max; i++)
+                Video fichier;
+                for (int i = 0; i < max; i++)
                 {
                     string fileWExt = System.IO.Path.GetFileNameWithoutExtension(filename);
-                    Video fichier = new Video(System.IO.File.ReadAllBytes(filename), fileWExt+i, max, i);
+                    if(i == max - i)
+                    {
+                        fichier = new Video(System.IO.File.ReadAllBytes(filename), fileWExt + i, true, i);
+                    }
+                    else
+                    {
+                        fichier = new Video(System.IO.File.ReadAllBytes(filename), fileWExt + i, false, i);
+                    }
+                    
                     //Byte[] fichier = System.IO.File.ReadAllBytes(filename);
                     MediaTypeFormatter bsonFormatter = new BsonMediaTypeFormatter();
-                    var response = client.PostAsync("/api/video/uploadStream", fichier, bsonFormatter).Result;
+                    var response = await client.PostAsync("/api/video/uploadStream", fichier, bsonFormatter);
                     if (response.IsSuccessStatusCode)
                     {
                         MessageBox.Show("vidéo envoyé");
@@ -176,9 +185,9 @@ namespace VideoCaptureApplication.Views
                         response.StatusCode + " : Message - " + response.ReasonPhrase);
                     }
                 }
-                
 
-               
+
+
 
             }
 
@@ -220,7 +229,7 @@ namespace VideoCaptureApplication.Views
             
             stopwatch.Start();
 
-            lastFileName = Path.Combine(outputFolder, DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + ".avi");
+            lastFileName = Path.Combine(outputFolder, DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss")+"_.avi");
             videoRecorder = new VideoRecorder(lastFileName, encoder, (int)CurrentParameter.Quality, (int)CurrentParameter.NbImage);
 
             stopwatch.Stop();
@@ -284,7 +293,5 @@ namespace VideoCaptureApplication.Views
         {
             StartReading();
         }
-
-
     }
 }
