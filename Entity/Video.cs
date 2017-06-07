@@ -8,16 +8,16 @@ namespace Entity
 {
     public class Video
     {
-        public byte[] size { get; set; }
+        public byte[] content { get; set; }
         public string name { get; set; }
-        public double count { get; set; }
-        public double current { get; set; }
+        public Boolean isLast { get; set; }
+        public double currentBlob { get; set; }
 
-        public Video(byte[] size, string name, double count, double current ) {
-            this.size = size;
+        public Video(byte[] content, string name, Boolean isLast, double currentBlob ) {
+            this.content = content;
             this.name = name;
-            this.count = count;
-            this.current = current;
+            this.isLast = isLast;
+            this.currentBlob = currentBlob;
         }
     }
 }

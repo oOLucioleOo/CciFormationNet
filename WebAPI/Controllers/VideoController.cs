@@ -6,7 +6,9 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web.Hosting;
 using System.Web.Http;
-
+using Microsoft.AspNet.SignalR;
+using WebAPI;
+using WebAPI.Models;
 
 
 public class VideoController : ApiController
@@ -23,23 +25,23 @@ public class VideoController : ApiController
         return response;
     }
 
+    [HttpGet]
+    public void Notify()
+    {
+        var hubContext = HubManager.Instance;
+
+        hubContext.StartStream();
+    }
+
     [HttpPost]
+    //[Route("api/user/UploadStream/")]
     public void uploadStream(Video video)
     {
+        Console.WriteLine(Request.Content.ToString());
         try
         {
-            if(video.current == video.count - 1)
-            {
-                File.WriteAllBytes(string.Format(HostingEnvironment.ApplicationPhysicalPath + "StorageTemp\\" + video.name + ".mp4"), video.size);
-
-                //MemoryStream
-
-            }
-            else
-            {
-                File.WriteAllBytes(string.Format(HostingEnvironment.ApplicationPhysicalPath + "StorageTemp\\" + video.name + ".mp4"), video.size);
-            }
-
+            //Sauvegarde du fichier reçu dans le StorageTemp
+            File.WriteAllBytes(string.Format(HostingEnvironment.ApplicationPhysicalPath + "StorageTemp\\" + video.name + ".mp4"), video.content);
         }
         catch(Exception ex)
         {
@@ -47,17 +49,23 @@ public class VideoController : ApiController
         }  
     }
 
-    private void concatenateVideo()
-    {
-        try
-        {
-            FileStream fsAll = new FileStream("video.mp4", FileMode.Create);
-
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.Message);
-        }
-    }
+    //private Boolean concatenateVideo(Video video)
+    //{
+    //    try
+    //    {
+    //        FileStream fsAll = new FileStream("video.mp4", FileMode.Create);
+    //        for(int i =0; i<video.count-1; i++)
+    //        {
+    //            FileStream fs = new FileStream(string.Format(HostingEnvironment.ApplicationPhysicalPath + "StorageTemp\\Good morning gif"+i+".mp4"), FileMode.Open);
+    //            fs.CopyTo(fsAll);
+    //        }
+    //        return true;
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        Console.WriteLine(ex.Message);
+    //        return false;
+    //    }
+    //}
 
 }
