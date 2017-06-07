@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Forms;
 
 namespace Services
 {
@@ -17,18 +18,22 @@ namespace Services
 
             var user = UserRepository.GetUserByLoginPwd(login, password);
 
-            var response = user.USER_ID;
-
-            if (response == 0)
+            try
             {
-                //MessageBox.Show("Votre login ou votre mot de passe n'est pas correct.",
-                //"Erreur d'authentification",
-                //MessageBoxButton.OKCancel,
-                //MessageBoxImage.Warning);
+                if (user.USER_ID == 0)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return user.USER_ID;
+                }
+            }
+            catch (Exception e)
+            {
+                return 0;
             }
 
-            return response;
         }
-      
     }
 }
