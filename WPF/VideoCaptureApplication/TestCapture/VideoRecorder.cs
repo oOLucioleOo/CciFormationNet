@@ -17,23 +17,29 @@ using SharpAvi;
 using SharpAvi.Output;
 // Contains types related to encoding like Mpeg4VideoEncoderVcm
 using SharpAvi.Codecs;
-
+using System.IO;
 
 namespace VideoCaptureApplication.TestCapture
 {
     class VideoRecorder 
     {
-        private readonly AviWriter writer;
+        private AviWriter writer { get; set; }
+        private string fileName { get; set; }
+        private int fps { get; set; }
+        private int quality { get; set; }
+        private FourCC codec { get; set; }
         private readonly int screenWidth;
         private readonly int screenHeight;
         private readonly Thread screenThread;
         private readonly Thread screenStreamThread;
-        private readonly IAviVideoStream videoStream;
+        private IAviVideoStream videoStream { get; set; }
         private readonly ManualResetEvent stopThread = new ManualResetEvent(false);
+        private readonly ManualResetEvent stopThreadChunk = new ManualResetEvent(false);
         private readonly AutoResetEvent videoFrameWritten = new AutoResetEvent(false);
+        
 
 
-        public VideoRecorder(string fileName,FourCC codec, int quality,int fps)
+        public VideoRecorder(string fileName,FourCC codec, int quality, int fps)
         {
             System.Windows.Media.Matrix toDevice;
             using (var source = new HwndSource(new HwndSourceParameters()))
@@ -50,6 +56,11 @@ namespace VideoCaptureApplication.TestCapture
                 FramesPerSecond = fps,
                 EmitIndex1 = true,
             };
+
+            this.fileName = fileName;
+            this.codec = codec;
+            this.fps = fps;
+            this.quality = quality;
 
             // Create video stream
             videoStream = CreateVideoStream(codec, quality);
@@ -100,35 +111,75 @@ namespace VideoCaptureApplication.TestCapture
             var shotsTaken = 0;
             var timeTillNextFrame = TimeSpan.Zero;
             stopwatch.Start();
+            int chunkNumber = 0;
 
             while (!stopThread.WaitOne(timeTillNextFrame))
             {
-
-                GetScreenshot(buffer);
-                shotsTaken++;
-
-                // Wait for the previous frame is written
-                if (!isFirstFrame)
+                
+                while (!stopThreadChunk.WaitOne(timeTillNextFrame))
                 {
+                    GetScreenshot(buffer);
+                    shotsTaken++;
 
-                    videoWriteTask.Wait();
+                    // Wait for the previous frame is written
+                    if (!isFirstFrame)
+                    {
 
-                    //videoStream.EndWriteFrame(videoWriteResult);
+                        videoWriteTask.Wait();
 
-                    videoFrameWritten.Set();
+                        //videoStream.EndWriteFrame(videoWriteResult);
+
+                        videoFrameWritten.Set();
+                    }
+
+                    // Start asynchronous (encoding and) writing of the new frame
+                    videoWriteTask = videoStream.WriteFrameAsync(true, buffer, 0, buffer.Length);
+
+                    //videoWriteResult = videoStream.BeginWriteFrame(true, buffer, 0, buffer.Length, null, null);
+
+
+                    timeTillNextFrame = TimeSpan.FromSeconds(shotsTaken / (double)writer.FramesPerSecond - stopwatch.Elapsed.TotalSeconds);
+                    if (timeTillNextFrame < TimeSpan.Zero)
+                        timeTillNextFrame = TimeSpan.Zero;
+
+                    isFirstFrame = false;
+
+
+                    var file = string.Empty;
+                    if (chunkNumber > 0)
+                    {
+                        file = this.fileName + chunkNumber;
+                    }
+                    else
+                    {
+                        file = this.fileName;
+                    }
+
+
+                    var fileInfo = new FileInfo(file);
+                    if (fileInfo.Length > 1048576)
+                    {
+                        stopThreadChunk.Set();
+                    }
                 }
+                stopThreadChunk.Reset();
+                chunkNumber++;
 
-                // Start asynchronous (encoding and) writing of the new frame
-                videoWriteTask = videoStream.WriteFrameAsync(true, buffer, 0, buffer.Length);
+                this.writer.Close();
+                // Create AVI writer and specify FPS
+                this.writer = new AviWriter(fileName+ chunkNumber)
+                {
+                    FramesPerSecond = this.fps,
+                    EmitIndex1 = true,
+                };
 
-                //videoWriteResult = videoStream.BeginWriteFrame(true, buffer, 0, buffer.Length, null, null);
+                this.fileName = fileName;
 
-
-                timeTillNextFrame = TimeSpan.FromSeconds(shotsTaken / (double)writer.FramesPerSecond - stopwatch.Elapsed.TotalSeconds);
-                if (timeTillNextFrame < TimeSpan.Zero)
-                    timeTillNextFrame = TimeSpan.Zero;
-
-                isFirstFrame = false;
+                // Create video stream
+                videoStream = CreateVideoStream(this.codec, this.quality);
+                // Set only name. Other properties were when creating stream, 
+                // either explicitly by arguments or implicitly by the encoder used
+                videoStream.Name = "Screencast";
             }
 
             stopwatch.Stop();
@@ -168,6 +219,8 @@ namespace VideoCaptureApplication.TestCapture
             writer.Close();
 
             stopThread.Close();
+
+            stopThreadChunk.Close();
         }
 
     }

@@ -32,7 +32,8 @@ namespace VideoCaptureApplication
         private void AuthWindow_Loaded(object sender, RoutedEventArgs e)
         {
             Views.AuthenticationWindow win2 = new Views.AuthenticationWindow();
-            win2.Show();
+            win2.Owner = System.Windows.Application.Current.MainWindow;
+            win2.ShowDialog();
             //win2.ShowActivated = true;
             win2.Topmost = true;
         }
