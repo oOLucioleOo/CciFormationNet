@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Text;
 using Entity;
+using Services;
+
 
 
 namespace VideoCaptureApplication.Views
@@ -31,7 +33,8 @@ namespace VideoCaptureApplication.Views
                 HttpResponseMessage wcfResponse = await httpClient.PostAsJsonAsync(resourceAddress, user);
                 if (wcfResponse.IsSuccessStatusCode)
                 {
-                    MessageBox.Show("reponse du serveur OK");
+                    var plop = await wcfResponse.Content.ReadAsStringAsync();
+                  
                 }
                 else
                 {
@@ -59,11 +62,6 @@ namespace VideoCaptureApplication.Views
                     httpClient = null;
                 }
             }            
-        }
-
-        private void BtnAuthExit_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
         }
     }
 }
