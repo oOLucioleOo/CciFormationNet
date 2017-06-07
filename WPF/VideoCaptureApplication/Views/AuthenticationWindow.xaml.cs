@@ -6,8 +6,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Text;
 using Entity;
-using Services;
-
 
 
 namespace VideoCaptureApplication.Views
@@ -33,8 +31,16 @@ namespace VideoCaptureApplication.Views
                 HttpResponseMessage wcfResponse = await httpClient.PostAsJsonAsync(resourceAddress, user);
                 if (wcfResponse.IsSuccessStatusCode)
                 {
-                    var plop = await wcfResponse.Content.ReadAsStringAsync();
-                  
+                    var Respstring = await wcfResponse.Content.ReadAsStringAsync();
+                    long userId = long.Parse(Respstring);
+                    if (userId == 0)
+                    {
+                        MessageBox.Show("Votre login ou votre mot de passe n'est pas correct !!");
+                    }
+                    else
+                    {
+                        this.Close();
+                    }
                 }
                 else
                 {

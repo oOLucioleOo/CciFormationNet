@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VideoCaptureApplication.Views"
         mc:Ignorable="d"
-        Title="AuthenticationWindow" Height="196.667" Width="400" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" >
+        Focusable="True"
+        Title="AuthenticationWindow" Height="300" Width="400" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" BorderBrush="AliceBlue" BorderThickness="1px" >
 
     <Grid Margin="20,20,20,20">
         <Grid.RowDefinitions>

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{70AD3061-3555-4537-AED8-9E8C9170DE0E}"
 EndProject
@@ -18,7 +18,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VideoCaptureApplication.Utils", "WPF\VideoCaptureApplication.Utils\VideoCaptureApplication.Utils.csproj", "{87772435-D579-4713-8B04-E75BD5D12D7D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVCWebApp", "MVCWebApp\MVCWebApp.csproj", "{68E8E041-F22D-4120-9AEE-537B4FF57736}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entity", "Entity\Entity.csproj", "{AB2EF369-7472-49BE-B88E-FD8DD073DF80}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpAvi", "SharpAvi\SharpAvi.csproj", "{07B83677-E9B8-4166-A383-CF3B3D393FBD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,6 +61,10 @@ Global
 		{AB2EF369-7472-49BE-B88E-FD8DD073DF80}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AB2EF369-7472-49BE-B88E-FD8DD073DF80}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AB2EF369-7472-49BE-B88E-FD8DD073DF80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07B83677-E9B8-4166-A383-CF3B3D393FBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07B83677-E9B8-4166-A383-CF3B3D393FBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07B83677-E9B8-4166-A383-CF3B3D393FBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07B83677-E9B8-4166-A383-CF3B3D393FBD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -65,5 +72,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{407D323A-AFD9-41D5-BADD-0CED7C54EC5D} = {4363B338-DC0C-46CD-8A79-10D1834C0AA4}
 		{87772435-D579-4713-8B04-E75BD5D12D7D} = {4363B338-DC0C-46CD-8A79-10D1834C0AA4}
+		{07B83677-E9B8-4166-A383-CF3B3D393FBD} = {4363B338-DC0C-46CD-8A79-10D1834C0AA4}
 	EndGlobalSection
 EndGlobal

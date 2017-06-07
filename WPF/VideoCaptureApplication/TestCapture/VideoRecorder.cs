@@ -33,7 +33,7 @@ namespace VideoCaptureApplication.TestCapture
         private readonly AutoResetEvent videoFrameWritten = new AutoResetEvent(false);
 
 
-        public VideoRecorder(string fileName,FourCC codec, int quality,int fps)
+        public VideoRecorder(string fileName,FourCC codec, int quality, int fps)
         {
             System.Windows.Media.Matrix toDevice;
             using (var source = new HwndSource(new HwndSourceParameters()))
