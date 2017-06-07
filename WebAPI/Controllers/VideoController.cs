@@ -25,8 +25,9 @@ public class VideoController : ApiController
 
     [HttpPost]
     //[Route("api/user/UploadStream/")]
-    public void UploadStream([FromBody]Video video)
+    public void uploadStream(Video video)
     {
+        Console.WriteLine(Request.Content.ToString());
         try
         {
             if(video.current == video.count - 1)

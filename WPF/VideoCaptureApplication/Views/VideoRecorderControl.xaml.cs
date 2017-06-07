@@ -109,8 +109,8 @@ namespace VideoCaptureApplication.Views
             // Configure open file dialog box
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
             dlg.FileName = "Document"; // Default file name
-            dlg.DefaultExt = ".mp4"; // Default file extension
-            dlg.Filter = "documents (.mp4)|*.mp4"; // Filter files by extension
+            dlg.DefaultExt = ".avi"; // Default file extension
+            dlg.Filter = "documents (.avi)|*.avi"; // Filter files by extension
 
             // Show open file dialog box
             Nullable<bool> result = dlg.ShowDialog();
@@ -135,7 +135,7 @@ namespace VideoCaptureApplication.Views
                     Video fichier = new Video(System.IO.File.ReadAllBytes(filename), fileWExt + i, max, i);
                     //Byte[] fichier = System.IO.File.ReadAllBytes(filename);
                     MediaTypeFormatter bsonFormatter = new BsonMediaTypeFormatter();
-                    var response = await client.PostAsync("/api/video/UploadStream", fichier, bsonFormatter);
+                    var response = await client.PostAsync("/api/video/uploadStream", fichier, bsonFormatter);
                     if (response.IsSuccessStatusCode)
                     {
                         MessageBox.Show("vidéo envoyé");
