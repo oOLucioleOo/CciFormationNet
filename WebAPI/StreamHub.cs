@@ -9,16 +9,9 @@ namespace WebAPI
 {
     public class StreamHub : Hub
     {
-        public void Hello()
-        {
-            Clients.All.hello();
-        }
-
         public void SendMessage(string name, string message)
         {
             Clients.All.sendMessage(name, message);
         }
-
-
     }
 }
