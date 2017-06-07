@@ -72,16 +72,16 @@ namespace VideoCaptureApplication.Views
                     }
                     else
                     {
+                        if (CheckBoxSave.IsChecked.Value == false)
+                        {
+                            CurrentParameter.Login = null;
+                            CurrentParameter.Pwd = null;
+                            PwdTextBox.Password = "";
+                        }
+                        SaveData();
                         this.Close();
                     }
-                    MessageBox.Show("reponse du serveur OK");
-                    if (CheckBoxSave.IsChecked.Value == false)
-                    {
-                        CurrentParameter.Login = null;
-                        CurrentParameter.Pwd = null;
-                        PwdTextBox.Password = "";
-                    }
-                        SaveData();
+                    
                 }
                 else
                 {
