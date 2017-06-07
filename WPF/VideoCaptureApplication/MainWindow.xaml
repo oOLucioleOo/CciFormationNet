@@ -16,7 +16,9 @@
         BorderBrush="{DynamicResource AccentColorBrush}"
         GlowBrush="{DynamicResource AccentColorBrush}"
         ResizeMode="CanResizeWithGrip"
+        Loaded="AuthWindow_Loaded"
         WindowTransitionsEnabled="False">
+    
     <Grid>
         <metro:MetroAnimatedTabControl>
             <TabItem Header="{Binding Path=Strings.VideoPageName, Source={StaticResource ApplicationResources}}" Padding="30,20,20,20">
@@ -29,9 +31,6 @@
         </metro:MetroAnimatedTabControl>
 
         <controls:BusyIndicator x:Name="MainBusyIndicator" Visibility="Hidden" LoaderText="{Binding Path=Strings.Loadingtext, Source={StaticResource ApplicationResources}}" />
-
-        
-        
     </Grid>
 
 </metro:MetroWindow>

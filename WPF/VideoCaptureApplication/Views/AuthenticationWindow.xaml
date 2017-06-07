@@ -5,34 +5,35 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VideoCaptureApplication.Views"
         mc:Ignorable="d"
-        Title="AuthenticationWindow" Height="300" Width="400" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" >
+        Focusable="True"
+        Title="AuthenticationWindow" Height="300" Width="400" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" BorderBrush="AliceBlue" BorderThickness="1px" >
+
     <Grid Margin="20,20,20,20">
         <Grid.RowDefinitions>
             <RowDefinition Height="25"></RowDefinition>
             <RowDefinition Height="25"></RowDefinition>
-            <RowDefinition Height="25"></RowDefinition>
-            <RowDefinition Height="25"></RowDefinition>
-            <RowDefinition Height="45"></RowDefinition>
+            <RowDefinition Height="29"></RowDefinition>
+            <RowDefinition Height="31"></RowDefinition>
+            <RowDefinition Height="122"></RowDefinition>
             <RowDefinition Height="25"></RowDefinition>
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0" Text="Authentification" Style="{StaticResource BasicTextBlock}"></TextBlock>
 
-        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,2,0,2">
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,2,0,2" Width="356">
             <TextBlock Text="Login : " Style="{StaticResource BasicTextBlock}" Margin="0,0,10,0"></TextBlock>
             <TextBox Name="LoginTextBox" Height="25" Width="297" Margin="0,0,0,0"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,2,0,2">
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,2,0,2" Width="357">
             <TextBlock Text="Pwd : " Style="{StaticResource BasicTextBlock}" Margin="0,0,18,0"></TextBlock>
             <PasswordBox Name="PwdTextBox" PasswordChar="*"  Height="25" Width="298"/>
         </StackPanel>
-        
-        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+
+        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,82" Width="86">
             <Button Name="BtnAuthOk" Click="BtnAuthOk_Click"  Background="LightSteelBlue" Height="20" Width="80" Margin="3,0,3,3" Padding="3,3,3,3">Login</Button>
-            <Button Name="BtnAuthExit" Click="BtnAuthExit_Click" Background="LightSteelBlue" Height="20" Width="80" Margin="3,0,3,3" Padding="3,3,3,3">Exit</Button>
         </StackPanel>
-        
+
     </Grid>
-    
+
 </Window>

@@ -6,7 +6,9 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web.Hosting;
 using System.Web.Http;
-
+using Microsoft.AspNet.SignalR;
+using WebAPI;
+using WebAPI.Models;
 
 
 public class VideoController : ApiController
@@ -21,6 +23,14 @@ public class VideoController : ApiController
         response.Content = new PushStreamContent(video.WriteToStream, mediaType);
 
         return response;
+    }
+
+    [HttpGet]
+    public void Notify()
+    {
+        var hubContext = HubManager.Instance;
+
+        hubContext.StartStream();
     }
 
     [HttpPost]
