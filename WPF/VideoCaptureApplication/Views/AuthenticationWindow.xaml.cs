@@ -39,6 +39,9 @@ namespace VideoCaptureApplication.Views
                     }
                     else
                     {
+                        string simpleCookie = "CSCUser1=Mahesh";
+                        Uri cookieUri1 = new Uri(@"C:\Junk\SimpleMC");
+                        Application.SetCookie(cookieUri1, simpleCookie);
                         this.Close();
                     }
                 }
@@ -68,6 +71,11 @@ namespace VideoCaptureApplication.Views
                     httpClient = null;
                 }
             }            
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }
