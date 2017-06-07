@@ -31,7 +31,16 @@ namespace VideoCaptureApplication.Views
                 HttpResponseMessage wcfResponse = await httpClient.PostAsJsonAsync(resourceAddress, user);
                 if (wcfResponse.IsSuccessStatusCode)
                 {
-                    MessageBox.Show("reponse du serveur OK");
+                    var Respstring = await wcfResponse.Content.ReadAsStringAsync();
+                    long userId = long.Parse(Respstring);
+                    if (userId == 0)
+                    {
+                        MessageBox.Show("Votre login ou votre mot de passe n'est pas correct !!");
+                    }
+                    else
+                    {
+                        this.Close();
+                    }
                 }
                 else
                 {
@@ -59,11 +68,6 @@ namespace VideoCaptureApplication.Views
                     httpClient = null;
                 }
             }            
-        }
-
-        private void BtnAuthExit_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
         }
     }
 }

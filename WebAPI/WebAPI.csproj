@@ -155,6 +155,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\VideoController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Models\HubManager.cs" />
     <Compile Include="Models\VideoStream.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
