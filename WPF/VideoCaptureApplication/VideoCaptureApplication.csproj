@@ -48,9 +48,6 @@
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="SharpAvi, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\SharpAvi.2.1.0\lib\net45\SharpAvi.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
@@ -216,6 +213,10 @@
     <ProjectReference Include="..\..\Entity\Entity.csproj">
       <Project>{ab2ef369-7472-49be-b88e-fd8dd073df80}</Project>
       <Name>Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SharpAvi\SharpAvi.csproj">
+      <Project>{07b83677-e9b8-4166-a383-cf3b3d393fbd}</Project>
+      <Name>SharpAvi</Name>
     </ProjectReference>
     <ProjectReference Include="..\VideoCaptureApplication.Utils\VideoCaptureApplication.Utils.csproj">
       <Project>{87772435-d579-4713-8b04-e75bd5d12d7d}</Project>

@@ -201,13 +201,20 @@ namespace VideoCaptureApplication.Views
 
         private void StartReading()
         {
-            FileStream fs = File.Open(lastFileName, FileMode.OpenOrCreate,FileAccess.Read,FileShare.ReadWrite);
+            using (FileStream fs = File.Open(lastFileName, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite))
+            using (var fileStream = new FileStream(Path.Combine(outputFolder, DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + "part.avi"), FileMode.Create, FileAccess.Write))
+            {
 
-            char[] toSend = new char[512];
-            
-            var sw = new StreamWriter(fs);
-            var sr = new StreamReader(fs);
-            sr.ReadAsync(toSend, 0, 512);
+                char[] toSend = new char[1024];
+
+                var sw = new StreamWriter(fs);
+                var sr = new StreamReader(fs);
+                sr.ReadAsync(toSend, 0, 1024);
+                Console.WriteLine(toSend.Length);
+                {
+                    fs.CopyTo(fileStream);
+                };
+            };
         }
 
         private void StopRecording()
