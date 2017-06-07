@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:VideoCaptureApplication.Views"
         mc:Ignorable="d"
         Focusable="True"
-        Title="AuthenticationWindow" Height="300" Width="400" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" BorderBrush="AliceBlue" BorderThickness="1px" >
+        Title="AuthenticationWindow" Height="300" Width="400" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"  BorderBrush="AliceBlue" BorderThickness="1px" Closing="Window_Closing">
 
     <Grid Margin="20,20,20,20">
         <Grid.RowDefinitions>

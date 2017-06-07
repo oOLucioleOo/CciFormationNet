@@ -13,6 +13,8 @@ namespace VideoCaptureApplication
         public MainWindow()
         {
             InitializeComponent();
+         
+            
         }
 
         public void SetBusy(Visibility isVisible)
