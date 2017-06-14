@@ -136,8 +136,7 @@ namespace VideoCaptureApplication.TestCapture
                         videoFrameWritten.Set();
                     }
 
-                    // Start asynchronous (encoding and) writing of the new frame
-                    videoWriteTask = videoStream.WriteFrameAsync(true, buffer, 0, buffer.Length);
+                 
 
                     //videoWriteResult = videoStream.BeginWriteFrame(true, buffer, 0, buffer.Length, null, null);
                     
@@ -162,14 +161,14 @@ namespace VideoCaptureApplication.TestCapture
                 this.writer.Close();
 
                 //Appel de la méthode sendVideoToAPI
-                Thread sendingThread = new Thread(sendVideoToAPI)
-                {
-                    Name = typeof(Video).Name + ".sendingThread",
-                    IsBackground = true
-                };
+                //Thread sendingThread = new Thread(sendVideoToAPI)
+                //{
+                //    Name = typeof(Video).Name + ".sendingThread",
+                //    IsBackground = true
+                //};
 
-                sendingThread.Start(Path.GetFileNameWithoutExtension(fileName) + chunkNumber, chunkNumber);
-
+                //sendingThread.Start(Path.GetFileNameWithoutExtension(fileName) + chunkNumber, chunkNumber);
+                
                 chunkNumber++;
                 // Create AVI writer and specify FPS
                 this.writer = new AviWriter(Path.GetFileNameWithoutExtension(this.fileName) + chunkNumber + Path.GetExtension(this.fileName))
@@ -227,36 +226,36 @@ namespace VideoCaptureApplication.TestCapture
             stopThreadChunk.Close();
         }
 
-        private void sendVideoToAPI(string fileName, int chunkNumber)
-        {
-            try
-            {
-                //Création du client http
-                HttpClient client = new HttpClient();
-                client.BaseAddress = new Uri("Http://localhost:63315");
+        //private void sendVideoToAPI(string fileName, int chunkNumber)
+        //{
+        //    try
+        //    {
+        //        //Création du client http
+        //        HttpClient client = new HttpClient();
+        //        client.BaseAddress = new Uri("Http://localhost:63315");
 
-                //Header du client
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/bson"));
+        //        //Header du client
+        //        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/bson"));
 
 
-                //Sauvegarde du content dans une variable
-                string videoFilename = Path.GetFileNameWithoutExtension(fileName) + chunkNumber;
-                Byte[] content = File.ReadAllBytes(videoFilename);
+        //        //Sauvegarde du content dans une variable
+        //        string videoFilename = Path.GetFileNameWithoutExtension(fileName) + chunkNumber;
+        //        Byte[] content = File.ReadAllBytes(videoFilename);
 
-                //Création de l'objet video avec le filename sans incrémentation
-                Video fichier = new Video(content, Path.GetFileNameWithoutExtension(fileName), false, chunkNumber);
+        //        //Création de l'objet video avec le filename sans incrémentation
+        //        Video fichier = new Video(content, Path.GetFileNameWithoutExtension(fileName), false, chunkNumber);
 
-                //Envoi de la video
-                MediaTypeFormatter bsonFormatter = new BsonMediaTypeFormatter();
-                //var response = await client.PostAsync("/api/video/uploadStream", fichier, bsonFormatter);
+        //        //Envoi de la video
+        //        MediaTypeFormatter bsonFormatter = new BsonMediaTypeFormatter();
+        //        //var response = await client.PostAsync("/api/video/uploadStream", fichier, bsonFormatter);
                 
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+        //    }
+        //    catch(Exception ex)
+        //    {
+        //        Console.WriteLine(ex.Message);
+        //    }
             
-        }
+        //}
 
     }
 }

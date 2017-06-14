@@ -98,6 +98,7 @@
       <DependentUpon>ApplicationStrings.fr-FR.resx</DependentUpon>
     </Compile>
     <Compile Include="TestCapture\VideoRecorder.cs" />
+    <Compile Include="TestCapture\Watcher.cs" />
     <Compile Include="Views\AuthenticationWindow.xaml.cs">
       <DependentUpon>AuthenticationWindow.xaml</DependentUpon>
     </Compile>

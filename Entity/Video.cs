@@ -12,12 +12,14 @@ namespace Entity
         public string name { get; set; }
         public Boolean isLast { get; set; }
         public double currentBlob { get; set; }
+        public string extension { get; set; }
 
-        public Video(byte[] content, string name, Boolean isLast, double currentBlob ) {
+        public Video(byte[] content, string name, Boolean isLast, double currentBlob, string extension ) {
             this.content = content;
             this.name = name;
             this.isLast = isLast;
             this.currentBlob = currentBlob;
+            this.extension = extension;
         }
     }
 }
