@@ -164,11 +164,11 @@ namespace VideoCaptureApplication.Views
                     string fileWExt = System.IO.Path.GetFileNameWithoutExtension(filename);
                     if(i == max - i)
                     {
-                        fichier = new Video(System.IO.File.ReadAllBytes(filename), fileWExt + i, true, i);
+                        fichier = new Video(System.IO.File.ReadAllBytes(filename), fileWExt + i, true, i, "");
                     }
                     else
                     {
-                        fichier = new Video(System.IO.File.ReadAllBytes(filename), fileWExt + i, false, i);
+                        fichier = new Video(System.IO.File.ReadAllBytes(filename), fileWExt + i, false, i, "");
                     }
                     
                     //Byte[] fichier = System.IO.File.ReadAllBytes(filename);
