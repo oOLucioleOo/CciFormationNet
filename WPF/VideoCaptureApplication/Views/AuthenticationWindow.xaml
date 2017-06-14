@@ -8,7 +8,14 @@
         mc:Ignorable="d"
         Loaded="AuthenticationWindow_OnLoaded"
         Focusable="True"
-        Title="AuthenticationWindow" Height="300" Width="400" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" BorderBrush="AliceBlue" BorderThickness="1px" Closed="Window_Closed">
+        Title="AuthenticationWindow" 
+        Height="300" 
+        Width="400" 
+        ResizeMode="NoResize" 
+        WindowStartupLocation="CenterScreen" 
+        BorderBrush="AliceBlue" 
+        BorderThickness="1px" 
+        Closing="Window_Closing">
 
     <Grid Margin="20,20,20,20">
         <Grid.RowDefinitions>
@@ -41,7 +48,6 @@
         <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,86,2,0" Width="186">
             <Button x:Name="BtnAuthOk" Click="BtnAuthOk_Click"  Background="LightSteelBlue" Height="20" Width="80" Margin="3,0,3,3" Padding="3,3,3,3" Content="Login"/>
         </StackPanel>
-
 
     </Grid>
 

@@ -69,19 +69,11 @@ namespace VideoCaptureApplication.Views
                     }
                     else
                     {
-                        string simpleCookie = "CSCUser1=Mahesh";
-                        Uri cookieUri1 = new Uri(@"C:\Junk\SimpleMC");
-                        Application.SetCookie(cookieUri1, simpleCookie);
-                        if (CheckBoxSave.IsChecked.Value == false)
-                        {
-                            CurrentParameter.Login = null;
-                            CurrentParameter.Pwd = null;
-                            PwdTextBox.Password = "";
-                        }
+                        SingletonSession.Instance.ConnectedUser = user;
+                        SingletonSession.Instance.IsConnected = true;
                         SaveData();
                         this.Close();
                     }
-                    
                 }
                 else
                 {
@@ -142,7 +134,6 @@ namespace VideoCaptureApplication.Views
             }
             catch (Exception ex)
             {
-                //TODO : use logger in real world
                 Debug.WriteLine(ex.Message);
             }
             finally
@@ -151,15 +142,12 @@ namespace VideoCaptureApplication.Views
             }
         }
 
-
-        private void BtnAuthExit_Click(object sender, RoutedEventArgs e)
+        private void Window_Closing(object sender, EventArgs e)
         {
-            this.Close();
-        }
-
-        private void Window_Closed(object sender, EventArgs e)
-        {
-            Close();
+            if (!SingletonSession.Instance.IsConnected)
+            {
+                Application.Current.Shutdown();
+            }
         }
     }
 }
