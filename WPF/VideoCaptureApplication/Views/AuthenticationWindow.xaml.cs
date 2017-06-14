@@ -13,7 +13,7 @@ using VideoCaptureApplication.Utils.Helpers;
 using System.Diagnostics;
 using System.IO;
 using Newtonsoft.Json;
-
+using System.Security.Cryptography;
 
 
 namespace VideoCaptureApplication.Views
@@ -42,7 +42,7 @@ namespace VideoCaptureApplication.Views
             if (CurrentParameter.Login != null)
             {
                 CheckBoxSave.IsChecked = true;
-                PwdTextBox.Password = CurrentParameter.Pwd;
+                //PwdTextBox.Password = CurrentParameter.Pwd;
             }
         }
 
@@ -53,9 +53,9 @@ namespace VideoCaptureApplication.Views
             HttpClient httpClient = new HttpClient();
             try
             {
-                CurrentParameter.Pwd = PwdTextBox.Password;
+                CurrentParameter.Pwd = hashSHA256(PwdTextBox.Password);
                 string resourceAddress = "http://localhost:63315/api/user/GetUsers/";
-                USER user = new USER { USER_LOG = this.LoginTextBox.Text, USER_PWD = this.PwdTextBox.Password};
+                USER user = new USER { USER_LOG = this.LoginTextBox.Text, USER_PWD = CurrentParameter.Pwd };
                 httpClient.Timeout = TimeSpan.FromMilliseconds(100000);
                 httpClient.DefaultRequestHeaders.Add("ContentType", "application/json; charser = utf-8");
                 HttpResponseMessage wcfResponse = await httpClient.PostAsJsonAsync(resourceAddress, user);
@@ -71,6 +71,16 @@ namespace VideoCaptureApplication.Views
                     {
                         SingletonSession.Instance.ConnectedUser = user;
                         SingletonSession.Instance.IsConnected = true;
+                        if (CheckBoxSave.IsChecked.Value == false)
+                        {
+                            CurrentParameter.Login = null;
+                            CurrentParameter.Pwd = null;
+                            PwdTextBox.Password = "";
+                        }
+                        else
+                        {
+                            CurrentParameter.Pwd = hashSHA256(CurrentParameter.Pwd);
+                        }
                         SaveData();
                         this.Close();
                     }
@@ -148,6 +158,22 @@ namespace VideoCaptureApplication.Views
             {
                 Application.Current.Shutdown();
             }
+        }
+
+
+        private string hashSHA256(String mdp)
+        {
+            byte[] bytes = Encoding.Unicode.GetBytes(mdp);
+            SHA256Managed hashstring = new SHA256Managed();
+            byte[] hash = hashstring.ComputeHash(bytes);
+            string hashString = string.Empty;
+            //pour chaque hash afficher le resultat
+            foreach (byte x in hash)
+            {
+                hashString += String.Format("{0:x2}", x);
+            }
+            //afficher le resultat
+            return hashString;
         }
     }
 }
