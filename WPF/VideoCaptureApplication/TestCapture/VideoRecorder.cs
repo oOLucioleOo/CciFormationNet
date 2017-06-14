@@ -138,7 +138,7 @@ namespace VideoCaptureApplication.TestCapture
                     //videoWriteResult = videoStream.BeginWriteFrame(true, buffer, 0, buffer.Length, null, null);
 
 
-<<<<<<< HEAD
+
                 // Start asynchronous (encoding and) writing of the new frame
                 if(buffer.Length> 1024)
                 {
@@ -146,11 +146,11 @@ namespace VideoCaptureApplication.TestCapture
                     Console.WriteLine("bonjour" + videoStream.Width*videoStream.Height*(int)videoStream.BitsPerPixel*videoStream.FramesWritten);
                 }
                 videoWriteTask = videoStream.WriteFrameAsync(true, buffer, 0, buffer.Length);
-=======
+
                     timeTillNextFrame = TimeSpan.FromSeconds(shotsTaken / (double)writer.FramesPerSecond - stopwatch.Elapsed.TotalSeconds);
                     if (timeTillNextFrame < TimeSpan.Zero)
                         timeTillNextFrame = TimeSpan.Zero;
->>>>>>> 538614d93664dc78af63ba53c93f352678aff23a
+
 
                     isFirstFrame = false;
 
