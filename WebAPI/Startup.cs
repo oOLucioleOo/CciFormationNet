@@ -19,7 +19,12 @@ namespace WebAPI
             {
 
                 map.UseCors(CorsOptions.AllowAll);
-                var hubConfiguration = new HubConfiguration {};
+                var hubConfiguration = new HubConfiguration
+                {
+                    EnableDetailedErrors = true,
+                    EnableJavaScriptProxies = true,
+                    EnableJSONP = true
+                };
 
                 // Run the SignalR pipeline. We're not using MapSignalR
                 // since this branch already runs under the "/signalr"
