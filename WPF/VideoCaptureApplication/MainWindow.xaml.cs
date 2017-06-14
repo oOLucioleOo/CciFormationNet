@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using static System.Net.Mime.MediaTypeNames;
 using System;
 using System.ComponentModel;
+using System.IO;
 
 namespace VideoCaptureApplication
 {
@@ -32,10 +33,17 @@ namespace VideoCaptureApplication
         
         private void AuthWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            Views.AuthenticationWindow win2 = new Views.AuthenticationWindow();
-            win2.Owner = System.Windows.Application.Current.MainWindow;
-            win2.ShowDialog();
-            win2.Topmost = true;
+            var exePath = new Uri(System.Reflection.Assembly.GetEntryAssembly().Location).LocalPath;
+            string path = Path.GetDirectoryName(exePath);
+            path += "\\stream";
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            //Views.AuthenticationWindow win2 = new Views.AuthenticationWindow();
+            //win2.Owner = System.Windows.Application.Current.MainWindow;
+            //win2.ShowDialog();
+            //win2.Topmost = true;
         }
     }
 }

@@ -74,6 +74,7 @@ namespace VideoCaptureApplication.Views
             
             var exePath = new Uri(System.Reflection.Assembly.GetEntryAssembly().Location).LocalPath;
             outputFolder = Path.GetDirectoryName(exePath);
+            outputFolder += "\\stream";
             encoder = KnownFourCCs.Codecs.MotionJpeg;
             //minimizeOnStart = true;      
             DispatcherTimer timer = new DispatcherTimer();
@@ -229,24 +230,6 @@ namespace VideoCaptureApplication.Views
             recordingStopwatch.Start();
         }
 
-        private void StartReading()
-        {
-            using (FileStream fs = File.Open(lastFileName, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite))
-            using (var fileStream = new FileStream(Path.Combine(outputFolder, DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + "part.avi"), FileMode.Create, FileAccess.Write))
-            {
-
-                char[] toSend = new char[1024];
-
-                var sw = new StreamWriter(fs);
-                var sr = new StreamReader(fs);
-                sr.ReadAsync(toSend, 0, 1024);
-                Console.WriteLine(toSend.Length);
-                {
-                    fs.CopyTo(fileStream);
-                };
-            };
-        }
-
         private void StopRecording()
         {
             if (!IsRecording)
@@ -283,7 +266,7 @@ namespace VideoCaptureApplication.Views
 
         private void btnReadStart_Click(object sender, RoutedEventArgs e)
         {
-            StartReading();
+            //StartReading();
         }
     }
 }

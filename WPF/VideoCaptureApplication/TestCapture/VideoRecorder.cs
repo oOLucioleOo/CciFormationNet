@@ -22,6 +22,8 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using Entity;
 using System.Net.Http.Formatting;
+using VideoCaptureApplication.Utils.Constants;
+using VideoCaptureApplication.Utils.Helpers;
 
 namespace VideoCaptureApplication.TestCapture
 {
@@ -57,7 +59,7 @@ namespace VideoCaptureApplication.TestCapture
             this.fileName = fileName;
 
             // Create AVI writer and specify FPS
-            writer = new AviWriter(Path.GetFileNameWithoutExtension(this.fileName) + 0 + Path.GetExtension(this.fileName))
+            writer = new AviWriter(AppConstants.VideoFolder + Path.GetFileNameWithoutExtension(this.fileName) + 0 + Path.GetExtension(this.fileName))
             {
                 FramesPerSecond = fps,
                 EmitIndex1 = true,
@@ -148,7 +150,8 @@ namespace VideoCaptureApplication.TestCapture
 
                     isFirstFrame = false;
 
-                    FileInfo fileInfo = new FileInfo(Path.GetFileNameWithoutExtension(this.fileName) + chunkNumber + Path.GetExtension(this.fileName));
+                    string fileName = StringUtils.GetAppRootDirectory + "\\" + AppConstants.VideoFolder + Path.GetFileNameWithoutExtension(this.fileName) + chunkNumber + Path.GetExtension(this.fileName);
+                    FileInfo fileInfo = new FileInfo(fileName);
 
                     if (fileInfo.Length > 1048576)
                     {
@@ -168,10 +171,11 @@ namespace VideoCaptureApplication.TestCapture
                 //};
 
                 //sendingThread.Start(Path.GetFileNameWithoutExtension(fileName) + chunkNumber, chunkNumber);
+
                 
                 chunkNumber++;
                 // Create AVI writer and specify FPS
-                this.writer = new AviWriter(Path.GetFileNameWithoutExtension(this.fileName) + chunkNumber + Path.GetExtension(this.fileName))
+                this.writer = new AviWriter(AppConstants.VideoFolder + Path.GetFileNameWithoutExtension(this.fileName) + chunkNumber + Path.GetExtension(this.fileName))
                 {
                     FramesPerSecond = this.fps,
                     EmitIndex1 = true,

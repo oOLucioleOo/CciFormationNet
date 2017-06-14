@@ -5,5 +5,6 @@ namespace VideoCaptureApplication.Utils.Constants
     {
         public const string FilesFolder = @"DataFiles";
         public const string FileName = @"parameters.json";
+        public const string VideoFolder = @"stream\";
     }
 }
