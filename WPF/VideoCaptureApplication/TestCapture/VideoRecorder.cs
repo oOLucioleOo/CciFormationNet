@@ -58,6 +58,7 @@ namespace VideoCaptureApplication.TestCapture
             };
 
             this.fileName = fileName;
+
             this.codec = codec;
             this.fps = fps;
             this.quality = quality;
@@ -136,37 +137,17 @@ namespace VideoCaptureApplication.TestCapture
                     videoWriteTask = videoStream.WriteFrameAsync(true, buffer, 0, buffer.Length);
 
                     //videoWriteResult = videoStream.BeginWriteFrame(true, buffer, 0, buffer.Length, null, null);
-
-
-
-                // Start asynchronous (encoding and) writing of the new frame
-                if(buffer.Length> 1024)
-                {
-                    Console.WriteLine("coucou"+videoStream.FramesWritten);
-                    Console.WriteLine("bonjour" + videoStream.Width*videoStream.Height*(int)videoStream.BitsPerPixel*videoStream.FramesWritten);
-                }
-                videoWriteTask = videoStream.WriteFrameAsync(true, buffer, 0, buffer.Length);
-
+                    
+                    // Start asynchronous (encoding and) writing of the new frame
+                    videoWriteTask = videoStream.WriteFrameAsync(true, buffer, 0, buffer.Length);
                     timeTillNextFrame = TimeSpan.FromSeconds(shotsTaken / (double)writer.FramesPerSecond - stopwatch.Elapsed.TotalSeconds);
                     if (timeTillNextFrame < TimeSpan.Zero)
                         timeTillNextFrame = TimeSpan.Zero;
 
-
                     isFirstFrame = false;
 
+                    FileInfo fileInfo = new FileInfo(Path.GetFileNameWithoutExtension(this.fileName) + chunkNumber + Path.GetExtension(this.fileName));
 
-                    var file = string.Empty;
-                    if (chunkNumber > 0)
-                    {
-                        file = this.fileName + chunkNumber;
-                    }
-                    else
-                    {
-                        file = this.fileName;
-                    }
-
-
-                    var fileInfo = new FileInfo(file);
                     if (fileInfo.Length > 1048576)
                     {
                         stopThreadChunk.Set();
@@ -177,13 +158,13 @@ namespace VideoCaptureApplication.TestCapture
 
                 this.writer.Close();
                 // Create AVI writer and specify FPS
-                this.writer = new AviWriter(fileName+ chunkNumber)
+                this.writer = new AviWriter(Path.GetFileNameWithoutExtension(this.fileName) + chunkNumber + Path.GetExtension(this.fileName))
                 {
                     FramesPerSecond = this.fps,
                     EmitIndex1 = true,
                 };
 
-                this.fileName = fileName;
+                this.fileName = this.fileName;
 
                 // Create video stream
                 videoStream = CreateVideoStream(this.codec, this.quality);
@@ -197,7 +178,7 @@ namespace VideoCaptureApplication.TestCapture
             // Wait for the last frame is written
             if (!isFirstFrame)
             {
-
+                chunkNumber = 0;
                 videoWriteTask.Wait();
 
                 //videoStream.EndWriteFrame(videoWriteResult);

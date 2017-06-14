@@ -32,9 +32,6 @@ namespace VideoCaptureApplication.Views
             InitializeComponent();
         }
 
-
-
-
         private void AuthenticationWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
             InitializeComponent();
@@ -72,6 +69,8 @@ namespace VideoCaptureApplication.Views
                     }
                     else
                     {
+                        SingletonSession.Instance.ConnectedUser = user;
+                        SingletonSession.Instance.IsConnected = true;
                         if (CheckBoxSave.IsChecked.Value == false)
                         {
                             CurrentParameter.Login = null;
@@ -85,7 +84,6 @@ namespace VideoCaptureApplication.Views
                         SaveData();
                         this.Close();
                     }
-                    
                 }
                 else
                 {
@@ -146,7 +144,6 @@ namespace VideoCaptureApplication.Views
             }
             catch (Exception ex)
             {
-                //TODO : use logger in real world
                 Debug.WriteLine(ex.Message);
             }
             finally
@@ -155,10 +152,12 @@ namespace VideoCaptureApplication.Views
             }
         }
 
-
-        private void BtnAuthExit_Click(object sender, RoutedEventArgs e)
+        private void Window_Closing(object sender, EventArgs e)
         {
-            this.Close();
+            if (!SingletonSession.Instance.IsConnected)
+            {
+                Application.Current.Shutdown();
+            }
         }
 
 

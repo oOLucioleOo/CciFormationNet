@@ -13,6 +13,9 @@ using WebAPI.Models;
 
 public class VideoController : ApiController
 {
+
+    private readonly double _latency = 3;
+
     [HttpGet]
     public HttpResponseMessage Get(string filename, string ext)
     {
@@ -34,28 +37,18 @@ public class VideoController : ApiController
     }
 
     [HttpPost]
-    //[Route("api/user/UploadStream/")]
     public void uploadStream(Video video)
     {
         Console.WriteLine(Request.Content.ToString());
         try
         {
-            if(video.current == video.count - 1)
+            //Sauvegarde du fichier reçu dans le StorageTemp
+            File.WriteAllBytes(string.Format(HostingEnvironment.ApplicationPhysicalPath + "StorageTemp\\" + video.name + video.currentBlob + video.extension), video.content);
+
+            if ((video.isLast) || (video.currentBlob % _latency == 0))
             {
-                File.WriteAllBytes(string.Format(HostingEnvironment.ApplicationPhysicalPath + "StorageTemp\\" + video.name + ".mp4"), video.size);
-
-                //MemoryStream
-                /*if (concatenateVideo(video))
-                {
-                    Console.WriteLine("Enregistrement de la video");
-                }*/
-
+                concatVideo(video);
             }
-            else
-            {
-                File.WriteAllBytes(string.Format(HostingEnvironment.ApplicationPhysicalPath + "StorageTemp\\" + video.name + ".mp4"), video.size);
-            }
-
         }
         catch(Exception ex)
         {
@@ -63,23 +56,40 @@ public class VideoController : ApiController
         }  
     }
 
-    private Boolean concatenateVideo(Video video)
+    private void concatVideo(Video video)
     {
+        FileStream fsAll = null;
         try
         {
-            FileStream fsAll = new FileStream("video.mp4", FileMode.Create);
-            for(int i =0; i<video.count-1; i++)
+            fsAll = new FileStream(video.name + Guid.NewGuid() + video.extension, FileMode.Create);
+            
+            double count = 0;
+
+            if ((video.currentBlob % _latency == 0) || ((video.currentBlob % _latency == 0) && (video.isLast)))
             {
-                FileStream fs = new FileStream(string.Format(HostingEnvironment.ApplicationPhysicalPath + "StorageTemp\\Good morning gif"+i+".mp4"), FileMode.Open);
+                count = video.currentBlob - _latency;
+            }
+            else if (video.isLast)
+            {
+                count = video.currentBlob - (video.currentBlob % _latency);
+            }
+
+            for (double i = count; i < video.currentBlob; i++)
+            {
+                FileStream fs = new FileStream(
+                    string.Format(HostingEnvironment.ApplicationPhysicalPath + "StorageTemp\\" + video.name + i
+                                  + video.extension), FileMode.Open);
                 fs.CopyTo(fsAll);
             }
-            return true;
         }
-        catch (Exception ex)
+        catch (Exception e)
         {
-            Console.WriteLine(ex.Message);
-            return false;
+            Console.WriteLine(e);
+            throw;
+        }
+        finally
+        {
+            fsAll?.Close();
         }
     }
-
 }
