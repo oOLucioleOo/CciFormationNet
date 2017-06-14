@@ -19,34 +19,34 @@
 
     <Grid Margin="20,20,20,20">
         <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="25"></RowDefinition>
-            <RowDefinition Height="25"></RowDefinition>
-            <RowDefinition Height="29"></RowDefinition>
+            <RowDefinition Height="31"></RowDefinition>
             <RowDefinition Height="31"></RowDefinition>
             <RowDefinition Height="122"></RowDefinition>
             <RowDefinition Height="25"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Text="Authentification" Style="{StaticResource BasicTextBlock}"/>
+        <TextBlock Grid.Row="0" Text="Authentification" Style="{StaticResource BasicTextBlock}" Height="25" Grid.RowSpan="2" VerticalAlignment="Top"/>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,2,0,2">
-            <TextBlock Text="Login : " Style="{StaticResource BasicTextBlock}" Margin="0,0,10,0"/>
-            <TextBox x:Name="LoginTextBox" Height="25" Width="297" Margin="0,0,0,0" 
+            <TextBlock Text="Login : " Style="{StaticResource BasicTextBlock}" Margin="0,0,10,-0.2" Width="51"/>
+            <TextBox x:Name="LoginTextBox" Height="25" Width="280" Margin="0,-1,0,-0.2" 
 				Text="{Binding CurrentParameter.Login, Mode=TwoWay}"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,2,0,2" Width="357">
-            <TextBlock Text="Pwd : " Style="{StaticResource BasicTextBlock}" Margin="0,0,18,0"></TextBlock>
-            <PasswordBox Name="PwdTextBox" PasswordChar="*"  Height="25" Width="298"/>
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,2,0,3" Width="342">
+            <TextBlock Text="Pwd : " Style="{StaticResource BasicTextBlock}" Margin="0,0,18,0.2" Width="43"></TextBlock>
+            <PasswordBox Name="PwdTextBox" PasswordChar="*"  Height="25" Width="280" Margin="0,0,0,-0.4"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,1,0,95" Width="108">
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,28.6,0,98.2" Width="108" Grid.RowSpan="2">
             <TextBlock x:Name="LabelSave" Text="Save : " Style="{StaticResource BasicTextBlock}" Margin="0,0,17,0"/>
-            <CheckBox x:Name="CheckBoxSave"/>
+            <CheckBox x:Name="CheckBoxSave" Margin="0,0,0,-0.4" Width="44" RenderTransformOrigin="2.172,2.754"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,86,2,0" Width="186">
-            <Button x:Name="BtnAuthOk" Click="BtnAuthOk_Click"  Background="LightSteelBlue" Height="20" Width="80" Margin="3,0,3,3" Padding="3,3,3,3" Content="Login"/>
+        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,49.6,1,0" Width="94">
+            <Button x:Name="BtnAuthOk" Click="BtnAuthOk_Click"  Background="LightSteelBlue" Height="20" Width="80" Margin="3,22,3,25" Padding="3,3,3,3" Content="Login"/>
         </StackPanel>
 
     </Grid>

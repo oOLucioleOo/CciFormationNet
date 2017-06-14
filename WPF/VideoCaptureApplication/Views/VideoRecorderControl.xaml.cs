@@ -177,7 +177,6 @@ namespace VideoCaptureApplication.Views
                     if (response.IsSuccessStatusCode)
                     {
                         MessageBox.Show("vidéo envoyé");
-
                     }
                     else
                     {
@@ -185,12 +184,7 @@ namespace VideoCaptureApplication.Views
                         response.StatusCode + " : Message - " + response.ReasonPhrase);
                     }
                 }
-
-
-
-
             }
-
         }
 
         private async void btnInternet_Click(object sender, RoutedEventArgs e)
@@ -207,9 +201,7 @@ namespace VideoCaptureApplication.Views
             
             Result = new Uri(await MasterWindow.ShowInputDialog(sender, e));
             mePlayer.Source = Result;
-            
         }
-
 
         private void StartRecording()
         {
